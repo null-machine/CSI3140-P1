@@ -1,0 +1,18 @@
+<p>homepage works!</p>
+
+<div>
+  <input type="text" id="course-code" #box
+         (keyup)="getValue(box.value)">
+<!--  <button (click)="switchCoursePage()" >Search</button>-->
+  <button type="button" (click)="search()">Go to course main</button>
+
+</div>
+
+<div>
+  <button  (click)="getAllCourseData()">Get all Course Data</button>
+  <p>{{courseData | json}}</p>
+</div>
+
+
+
+
