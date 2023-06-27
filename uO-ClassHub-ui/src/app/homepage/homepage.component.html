@@ -1,18 +1,25 @@
-<p>homepage works!</p>
+<div class="main"> 
+  <p>homepage works!</p>
+  <img id="icon" src="../assets/icon.png" alt="icon">
+  <div class="search-bar">
+   
+    <input type="text" id="course-code" #box
+           (keyup)="getValue(box.value)">
+  <!--  <button (click)="switchCoursePage()" >Search</button>-->
+    <button type="button" (click)="search()">Go to course main</button>
+    <div>
+      <button  (click)="getAllCourseData()">Get all Course Data</button>
+      <p>{{courseData | json}}</p>
+    </div>
+  
+  </div>
+  <div class="test">
+    <div class="emotion">
+      <img  src="../assets/negative.png" alt="icon">
+      <img  src="../assets/neutral.png" alt="icon">
+      <img  src="../assets/positive.png" alt="icon">
+    </div>
 
-<div>
-  <input type="text" id="course-code" #box
-         (keyup)="getValue(box.value)">
-<!--  <button (click)="switchCoursePage()" >Search</button>-->
-  <button type="button" (click)="search()">Go to course main</button>
-
+  </div>
+  
 </div>
-
-<div>
-  <button  (click)="getAllCourseData()">Get all Course Data</button>
-  <p>{{courseData | json}}</p>
-</div>
-
-
-
-
