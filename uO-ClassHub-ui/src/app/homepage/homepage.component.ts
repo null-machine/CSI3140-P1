@@ -23,6 +23,7 @@ export class HomepageComponent {
   filteredOptions: string[] = [];
   //The option user selects from the filtered options
   selectedOption: string = '';
+  textDisplay: string = '';
 
 
   getAllCourseData(){
@@ -86,6 +87,7 @@ export class HomepageComponent {
   searchCourse(){
     //Filters the coursesArray according to selected option
     const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[0] === this.selectedOption);
+    this.textDisplay = selectedOptionValues + "";
     console.log(selectedOptionValues);
     console.log(this.selectedOption);
     //this.router.navigate(['/review', this.courseCode]);

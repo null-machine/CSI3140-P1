@@ -1,11 +1,29 @@
 /*Main container*/
 .main{
-    background: linear-gradient(135deg, #31004a, #33007b, #8300c4);
+    background: linear-gradient(to right bottom, white 50%, #cacdd0 50%);
     min-height: 100%;
     text-align:center;
     position: relative;
 }
+#text_display{
+  position: fixed;
+  text-align: right;
+  right: 0px;
+  top:10em;
+  color: white;
+  text-align:left;
+  width: 100px;
+}
 
+#homepage_title{
+  font-family: 'Dylan', sans-serif; 
+  position:relative;
+  margin-left: 1em;
+  margin-right: auto;
+  font-size: 100px;
+  top:2em;
+  text-align: left;
+}
 /*Container for both search bar and image on top of it*/
 .search{
   margin-top: -50px;
@@ -17,6 +35,7 @@
     justify-content: center;
     width:35em;
     height:30em;
+
 }
 
 /*Images that appear at the bottom left*/
@@ -25,14 +44,16 @@
     display: flex;
     justify-content: center;
     position: absolute;
+    right:0px;
     bottom: 0px;
 }
 
 .emotion img {
-  opacity: 0;
+  opacity: 0.5;
   animation: image-appear 3s ease forwards;
   display: inline-block;
-  width:10em;
+  height:8em;
+  width:8em;
 }
 
 /*Animation for images*/
@@ -41,7 +62,7 @@
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: 0.5;
   }
 }
 
