@@ -80,12 +80,26 @@ def create_db():
 	''')
 	connection.commit()
 
-class Courses(Resource):
-        def get(self):
-                return {'courses':[{'id':1, 'name':'CSI3185'},{'id':2, 'name':'CSI3140'}]}
+#class Courses(Resource):
+ #       def get(self):
+  #              return {'courses':[{'id':1, 'name':'CSI3185'},{'id':2, 'name':'CSI3140'}]}
 
 
-api.add_resource(Courses,'/courses') #Route 1
+
+@app.route('/home')
+def get():
+	#if request.method == 'GET':
+
+	connection = sqlite3.connect('reviews.db')
+	cursor = connection.cursor()
+	connection.commit()
+	data = cursor.execute("SELECT * FROM reviews").fetchall()
+		#print(data)
+
+	connection.commit()
+		
+	return data
+#api.add_resource(Courses,'/courses') #Route 1
 # api.add_resource(Review, '/courses/<course_id>')
 
 

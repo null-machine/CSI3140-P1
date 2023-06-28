@@ -1,18 +1,39 @@
 <div class="main"> 
   <p>homepage works!</p>
-  <img id="icon" src="../assets/icon.png" alt="icon">
+
+
+  <div class = "search">
+
+    <img id="icon" src="../assets/robot.gif" alt="icon">
+
+
+   <!-- <select id = "course_code_dropdown" (change)="handleDropdownSelection($event)">
+      <option value="">Course codes</option>
+      <option *ngFor="let option of courseCodes" [value]="option">{{ option }}</option>
+    </select>-->
+    
   <div class="search-bar">
-   
-    <input type="text" id="course-code" #box
-           (keyup)="getValue(box.value)">
-  <!--  <button (click)="switchCoursePage()" >Search</button>-->
-    <button type="button" (click)="search()">Go to course main</button>
+  <div class="search-input-container">
+    <input type="text" class="search-input" placeholder="Search" (input)="filterOptions($event.target)" />
+
+    <ul class="filtered-options" *ngIf="filteredOptions.length > 0">
+      <li *ngFor="let option of filteredOptions" (click)="selectOption(option)">{{ option }}</li>
+    </ul>
+  </div>
+
+  <button type="button" class="button" (click)="searchCourse()">Go</button>
+
+  <!--  <button (click)="switchCoursePage()" >Search</button>
+    <button id = course_main_button, type="button" (click)="search()">Go to course main</button>
     <div>
       <button  (click)="getAllCourseData()">Get all Course Data</button>
       <p>{{courseData | json}}</p>
-    </div>
-  
+    </div>-->
+
   </div>
+    
+  </div>
+
   <div class="test">
     <div class="emotion">
       <img  src="../assets/negative.png" alt="icon">
@@ -21,5 +42,6 @@
     </div>
 
   </div>
+
   
 </div>
