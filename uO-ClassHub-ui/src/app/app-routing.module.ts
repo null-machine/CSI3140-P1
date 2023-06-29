@@ -10,12 +10,17 @@ const routes: Routes =[
   {path: '', redirectTo: '/', pathMatch: 'full'},
 
   {path: '', component: HomepageComponent},
-  {path:'c',component: ReviewComponent,
+ /* {path:'c',component: ReviewComponent,
     children:[
       {path:'overview',component:OverviewComponent},
       {path:'list',component:ListReviewsComponent},
       {path:'review',component:SendReviewComponent}
     ],
+  },*/
+  {
+    //the courseId is a place holder that is why we use : at the beginning
+    path: 'review/:courseId',
+    component: ReviewComponent
   },
   {path: '**', component: HomepageComponent},
 

@@ -90,7 +90,8 @@ export class HomepageComponent {
     this.textDisplay = selectedOptionValues + "";
     console.log(selectedOptionValues);
     console.log(this.selectedOption);
-    //this.router.navigate(['/review', this.courseCode]);
+    this.courseCode = this.selectedOption;
+    this.router.navigate(['/review', this.courseCode]);
   }
 
 

@@ -5,9 +5,11 @@ from flask_restful import Resource, Api
 from json import dumps
 from flask_jsonpify import jsonify
 import sqlite3
+import json
 
 #  py -m flask run
-
+import nltk
+nltk.downloader.download('vader_lexicon')
 app = Flask(__name__)
 api = Api(app)
 
@@ -99,6 +101,25 @@ def get():
 	connection.commit()
 		
 	return data
+
+@app.route('/review')
+def sentimentAnalysis():
+    paramName = request.args.get('paramName')  # Retrieve the value of the parameter
+    connection = sqlite3.connect('reviews.db')
+    cursor = connection.cursor()
+    connection.commit()
+    data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    print(data)
+    connection.commit()
+    sia = SentimentIntensityAnalyzer()
+
+    reviews = ''
+    for text in data:
+        reviews += text[0] + " "
+    print(reviews)
+    analysis = sia.polarity_scores(reviews)
+
+    return json.dumps(analysis)
 #api.add_resource(Courses,'/courses') #Route 1
 # api.add_resource(Review, '/courses/<course_id>')
 

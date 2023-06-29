@@ -1,10 +1,21 @@
+body{
+    margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: auto;
+}
 /*Main container*/
 .main{
+  height: calc(100vh - 100px);
     background: linear-gradient(to right bottom, white 50%, #cacdd0 50%);
     min-height: 100%;
     text-align:center;
     position: relative;
+    overflow-y: scroll;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 #text_display{
   position: fixed;
   text-align: right;
@@ -16,13 +27,17 @@
 }
 
 #homepage_title{
-  font-family: 'Dylan', sans-serif; 
+  /*font-family: 'Chakra Petch', sans-serif;*/
+  font-family: 'Prata', serif;
+  color: grey;
+  transform: rotate(-25deg);
   position:relative;
-  margin-left: 1em;
   margin-right: auto;
-  font-size: 100px;
+  font-size: 130px;
   top:2em;
   text-align: left;
+
+
 }
 /*Container for both search bar and image on top of it*/
 .search{
@@ -49,7 +64,9 @@
 }
 
 .emotion img {
-  opacity: 0.5;
+  opacity: 0;
+  background-color: white;
+  border-radius: 50px;
   animation: image-appear 3s ease forwards;
   display: inline-block;
   height:8em;
@@ -139,3 +156,6 @@
 .search-input:not(:placeholder-shown) + .filtered-options {
   display: block;
 }
+
+
+
