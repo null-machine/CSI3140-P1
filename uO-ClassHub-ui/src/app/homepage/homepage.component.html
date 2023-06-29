@@ -6,6 +6,12 @@
   <h1 id = "homepage_title"><em>Edusentia</em></h1>
   <p id="text_display">{{ textDisplay }}</p>
 
+  <button type="button" id="see-reviews-button" (click)="searchCourse()">See reviews</button>
+  <button type="button" id="review-button" (click)="seeReviews()">Review the course</button>
+  <div class ="speech_bubble">
+    <p id = "speech">Welcome</p>
+  </div>
+
 
   <div class = "search">
 
@@ -26,7 +32,7 @@
     </ul>
   </div>
 
-  <button type="button" class="button" (click)="searchCourse()">Go</button>
+  <button type="button" class="button" (click)="clickButton()">Go</button>
 
   <!--  <button (click)="switchCoursePage()" >Search</button>
     <button id = course_main_button, type="button" (click)="search()">Go to course main</button>
@@ -36,6 +42,8 @@
     </div>-->
 
   </div>
+  <button type="button" id="go-back-button" (click)="goBack()">Go Back
+</button>
     
   </div>
 
@@ -49,39 +57,54 @@
 
   </div>
 
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
-    <div class ="circle">a</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+
 
   
   </div>

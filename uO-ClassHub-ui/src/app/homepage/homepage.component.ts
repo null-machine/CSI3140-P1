@@ -7,18 +7,36 @@ import {HttpClient} from "@angular/common/http";
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
+
+
 export class HomepageComponent {
-  constructor(private router:Router, private route: ActivatedRoute,private httpClient:HttpClient ){}
+  constructor(private router:Router, private route: ActivatedRoute,private httpClient:HttpClient ){
+    
+  }
 
   ngOnInit(): void {
     //Initializes the course data
     this.getAllCourseData();
+    this.speachBubble = document.querySelector('#speech') as HTMLElement;
+    this.reviewButton = document.querySelector('#review-button') as HTMLElement;
+    this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
+    this.searchBar = document.querySelector('.search-bar') as HTMLElement;
+    this.gobackButton = document.querySelector('#go-back-button') as HTMLElement;
+
   }
 
   courseCode='';
   courseData : JSON | undefined;
   courseCodes: any[] = [];
   coursesArray: any[] = [];
+
+  //HTML elements
+  speachBubble!: HTMLElement;
+  reviewButton!: HTMLElement;
+  seeReviewsButton!: HTMLElement;
+  searchBar!: HTMLElement;
+  gobackButton!: HTMLElement;
+
   //Filtered options from the input
   filteredOptions: string[] = [];
   //The option user selects from the filtered options
@@ -88,10 +106,39 @@ export class HomepageComponent {
     //Filters the coursesArray according to selected option
     const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[0] === this.selectedOption);
     this.textDisplay = selectedOptionValues + "";
-    console.log(selectedOptionValues);
-    console.log(this.selectedOption);
     this.courseCode = this.selectedOption;
     this.router.navigate(['/review', this.courseCode]);
+  }
+
+  verifySelectedOption(){
+    const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+    const input = searchInput.value;
+    return this.courseCodes.indexOf(input.toUpperCase()) > -1;
+  }
+  goBack(){
+    this.speachBubble.innerHTML = "Please select a course";
+    this.reviewButton.style.visibility = "hidden";
+    this.seeReviewsButton.style.visibility = "hidden";
+    this.searchBar.style.visibility = "visible";
+    this.gobackButton.style.visibility = "hidden";
+  }
+
+
+  clickButton(){
+    const verificationPassed = this.verifySelectedOption();
+    if(verificationPassed){
+      this.speachBubble.innerHTML = "Please select one of the values";
+      this.reviewButton.style.visibility = "visible";
+      this.seeReviewsButton.style.visibility = "visible";
+      this.searchBar.style.visibility = "hidden";
+      this.gobackButton.style.visibility = "visible";
+    }else{
+      this.speachBubble.innerHTML = "Please enter a valid course code";
+    }
+  }
+
+  seeReviews(){
+
   }
 
 
