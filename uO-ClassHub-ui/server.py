@@ -102,9 +102,13 @@ def get():
 		
 	return data
 
+##########################################################################3
+
 @app.route('/review')
 def putReviewIntoDatabase():
-    paramName = request.args.get('paramName')  # Retrieve the value of the parameter
+
+	# Retrieves the values of the passed in parameters
+    paramName = request.args.get('paramName')  
     review = request.args.get('review')
     reviewer = request.args.get('reviewer')
     stars = request.args.get('stars')
@@ -113,16 +117,15 @@ def putReviewIntoDatabase():
     connection = sqlite3.connect('reviews.db')
     cursor = connection.cursor()
     
-    # Execute the INSERT INTO statement
+    # Puts all the passed in parameters into the database
     cursor.execute('''
         INSERT INTO reviews (course, text, reviewer, stars, nltk_score)
         VALUES (?, ?, ?, ?, ?)
     ''', (paramName, review, reviewer, stars, analysis))
 
-    # Commit the transaction after the INSERT statement
     connection.commit()
 
-    # Retrieve the reviews for the specified course
+    # Retrieves the reviews for the specified course
     data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
     connection.commit()
 
@@ -132,15 +135,22 @@ def putReviewIntoDatabase():
 
 @app.route('/overview')
 def sentimentAnalysis():
-    paramName = request.args.get('paramName')  # Retrieve the value of the parameter
+	# Retrieves the value of the parameter
+    paramName = request.args.get('paramName')  
     connection = sqlite3.connect('reviews.db')
     cursor = connection.cursor()
     connection.commit()
+
+    # Gets the reviews from the data
+    # Comma is important! It is a tuple
     data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
     print(data)
     connection.commit()
+
+    # Initialize sentiment analyzer
     sia = SentimentIntensityAnalyzer()
 
+    # Puts all reviews into a string to be analyzed by the sentiment anlayser
     reviews = ''
     for text in data:
         reviews += text[0] + " "
@@ -148,9 +158,9 @@ def sentimentAnalysis():
     analysis = sia.polarity_scores(reviews)
 
     return json.dumps(analysis)
-#api.add_resource(Courses,'/courses') #Route 1
-# api.add_resource(Review, '/courses/<course_id>')
 
+
+#api.add_resource(Courses,'/courses') #Route 1
 
 if __name__ =='__main__':
         app.run(port = 5002)

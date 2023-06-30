@@ -14,6 +14,19 @@ body{
     overflow-y: scroll;
 }
 
+.goBack{
+  height: 50%;
+   position: absolute;
+   visibility: hidden;
+  left: 60%;
+}
+#goBackImg{
+  width:20px;
+  height:20px;
+  object-fit: cover;
+
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 #text_display{
@@ -82,11 +95,7 @@ body{
   border-radius: 100px;
 }
 
-#go-back-button{
-  position: absolute;
-  visibility: hidden;
-  left: 60%;
-}
+
 @keyframes moveTitle {
   0% {
     transform: translateY(0);
@@ -164,13 +173,21 @@ body{
 }
 
 /*Go button*/
-.button {
-  border: none;
+#go-button {
   font-size: 16px;
-  margin: 2px;
   border-radius: 50px;
 }
 
+/*Go button*/
+.button {
+
+  background-color: white;
+  font-size: 25px;
+  justify-content: center;
+  padding: 10px;
+  border-color: white;
+  border-radius: 100px;
+}
 
 /*Seach bar list*/
 .search-input-container {

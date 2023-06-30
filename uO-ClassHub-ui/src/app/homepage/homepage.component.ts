@@ -21,7 +21,7 @@ export class HomepageComponent {
     this.reviewButton = document.querySelector('#review-button') as HTMLElement;
     this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
     this.searchBar = document.querySelector('.search-bar') as HTMLElement;
-    this.gobackButton = document.querySelector('#go-back-button') as HTMLElement;
+    this.gobackButton = document.querySelector('.goBack') as HTMLElement;
 
   }
 
@@ -100,11 +100,14 @@ export class HomepageComponent {
     });
   }
 
+  //Checks if the selected option exists in the unique course codes array
   verifySelectedOption(){
     const searchInput = document.querySelector('.search-input') as HTMLInputElement;
     const input = searchInput.value;
     return this.courseCodes.indexOf(input.toUpperCase()) > -1;
   }
+
+  //Goes back to the search bar
   goBack(){
     this.speachBubble.innerHTML = "Please select a course";
     this.reviewButton.style.visibility = "hidden";
@@ -114,6 +117,7 @@ export class HomepageComponent {
   }
 
 
+  //Makes two new buttons appear (reviewButton, seeReviewsButton) while making the search bar disappear
   clickButton(){
     //Filters the coursesArray according to selected option
     const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[0] === this.selectedOption);
@@ -122,20 +126,21 @@ export class HomepageComponent {
     const verificationPassed = this.verifySelectedOption();
     if(verificationPassed){
       this.speachBubble.innerHTML = "Please select one of the values";
+      this.searchBar.style.visibility = "hidden";
       this.reviewButton.style.visibility = "visible";
       this.seeReviewsButton.style.visibility = "visible";
-      this.searchBar.style.visibility = "hidden";
       this.gobackButton.style.visibility = "visible";
     }else{
       this.speachBubble.innerHTML = "Please enter a valid course code";
     }
   }
 
-  //Displays the courseinformation on the console
+  //Routes to overview page
   seeReviews(){
     this.router.navigate(['/overview', this.courseCode]);
   }
 
+  //Routes to the review page
   makeReview(){
     this.router.navigate(['/review', this.courseCode]);
   }

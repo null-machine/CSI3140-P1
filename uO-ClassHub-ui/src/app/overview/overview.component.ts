@@ -24,21 +24,28 @@ export class OverviewComponent {
 	    const params = new HttpParams().set('paramName', this.courseCode);
 	    const analysisResult = document.querySelector('.analysisResult') as HTMLInputElement;
 
+	    //Connects to http://127.0.0.1:5002/overview which has the sentiment analysis method
+	    //Gets the sentiment analysis and puts it into the analysisResult html field
 	    this.httpClient.get(apiUrl, { params }).subscribe((data: any) => {
-	      // Handle the response data
 	      console.log(data);
+
+	      //Analysis results
 		  const analysis = `Compound: ${data.compound}, Negative: ${data.neg}, Neutral: ${data.neu}, Positive: ${data.pos}`;
-		  analysisResult.innerHTML = analysis; // Display the analysis
+		  analysisResult.innerHTML = analysis; 
+
 		  return data;
 	    }, (error: any) => {
 	      // Handle the error
 	      console.error(error);
 	    });
 	  }
+
+	//Route back to home page
 	goBackToHome(){
 		this.router.navigate(['/']);
 	}
 
+	//Route to review page
 	makeReview(){
 	    this.router.navigate(['/review', this.courseCode]);
 	  }

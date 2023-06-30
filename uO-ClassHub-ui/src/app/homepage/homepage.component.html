@@ -31,7 +31,7 @@
     </ul>
   </div>
 
-  <button type="button" class="button" (click)="clickButton()">Go</button>
+  <button type="button" class="button" id="go-button" (click)="clickButton()">Go</button>
 
   <!--  <button (click)="switchCoursePage()" >Search</button>
     <button id = course_main_button, type="button" (click)="search()">Go to course main</button>
@@ -40,9 +40,12 @@
       <p>{{courseData | json}}</p>
     </div>-->
 
+  </div >
+
+  <div class = "goBack">
+    <img src="../assets/goBack.png" alt="go back button" id="goBackImg">
+    <button type="button" class= "button" id="go-back-button" (click)="goBack()">Go Back</button>
   </div>
-  <button type="button" id="go-back-button" (click)="goBack()">Go Back
-</button>
     
   </div>
 
