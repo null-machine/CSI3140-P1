@@ -5,10 +5,11 @@ import {ReviewComponent} from "./review/review.component";
 import {OverviewComponent} from "./overview/overview.component";
 import {ListReviewsComponent} from "./review/list-reviews/list-reviews.component";
 import {SendReviewComponent} from "./review/send-review/send-review.component";
+import {LoginComponent} from "./login/login.component";
+import {SignupComponent} from "./signup/signup.component";
 
 const routes: Routes =[
   {path: '', redirectTo: '/', pathMatch: 'full'},
-
   {path: '', component: HomepageComponent},
  /* {path:'c',component: ReviewComponent,
     children:[
@@ -26,7 +27,11 @@ const routes: Routes =[
     path: 'review/:courseId',
     component: ReviewComponent
   },
-  {path: '**', component: HomepageComponent},
+ /* {path: '**', component: HomepageComponent},*/
+  {path:'login', component:LoginComponent},
+  {path:'signup', component:SignupComponent},
+/*  {path: ':userName', redirectTo: '/', pathMatch: 'full'}*/
+
 
 ]
 @NgModule({

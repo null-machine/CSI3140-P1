@@ -11,21 +11,37 @@ import {HttpClient} from "@angular/common/http";
 
 export class HomepageComponent {
   constructor(private router:Router, private route: ActivatedRoute,private httpClient:HttpClient ){
-    
   }
 
   ngOnInit(): void {
     //Initializes the course data
     this.getAllCourseData();
+    this.userName = localStorage.getItem('userName');
+
     this.speachBubble = document.querySelector('#speech') as HTMLElement;
     this.reviewButton = document.querySelector('#review-button') as HTMLElement;
     this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
     this.searchBar = document.querySelector('.search-bar') as HTMLElement;
     this.gobackButton = document.querySelector('.goBack') as HTMLElement;
+    this.loginButton = document.querySelector('#loginButton') as HTMLInputElement;
+    this.signUpButton = document.querySelector('#signUpButton') as HTMLInputElement;
+    this.logOutButton = document.querySelector('#logOutButton') as HTMLInputElement;
+
+
+    if(this.userName === null){
+      console.log("user not logged in")
+      this.loginButton.style.visibility="visible";
+      this.signUpButton.style.visibility="visible";
+    }else{
+      console.log("user logged in")
+      console.log(this.userName);
+      this.logOutButton.style.visibility="visible";
+    }
 
   }
 
   courseCode='';
+  userName: string | null = null;
   courseData : JSON | undefined;
   courseCodes: any[] = [];
   coursesArray: any[] = [];
@@ -36,6 +52,9 @@ export class HomepageComponent {
   seeReviewsButton!: HTMLElement;
   searchBar!: HTMLElement;
   gobackButton!: HTMLElement;
+  loginButton!: HTMLElement;
+  signUpButton!: HTMLElement;
+  logOutButton!: HTMLElement;
 
   //Filtered options from the input
   filteredOptions: string[] = [];
@@ -109,7 +128,7 @@ export class HomepageComponent {
 
   //Goes back to the search bar
   goBack(){
-    this.speachBubble.innerHTML = "Please select a course";
+    this.changeSpeech("Please select a course");
     this.reviewButton.style.visibility = "hidden";
     this.seeReviewsButton.style.visibility = "hidden";
     this.searchBar.style.visibility = "visible";
@@ -125,13 +144,13 @@ export class HomepageComponent {
 
     const verificationPassed = this.verifySelectedOption();
     if(verificationPassed){
-      this.speachBubble.innerHTML = "Please select one of the values";
+      this.changeSpeech("Please select one of the values");
       this.searchBar.style.visibility = "hidden";
       this.reviewButton.style.visibility = "visible";
       this.seeReviewsButton.style.visibility = "visible";
       this.gobackButton.style.visibility = "visible";
     }else{
-      this.speachBubble.innerHTML = "Please enter a valid course code";
+      this.changeSpeech("Please enter a valid course code");
     }
   }
 
@@ -142,9 +161,36 @@ export class HomepageComponent {
 
   //Routes to the review page
   makeReview(){
+    if(this.userName === null){
+      this.changeSpeech("Please login to make a review");
+      return;
+    }
     this.router.navigate(['/review', this.courseCode]);
   }
 
 
+  //Routes to login page
+  login(){
+    this.router.navigate(['/login']);
+  }
+
+  //Routes to signup page
+  signUp(){
+    this.router.navigate(['/signup']);
+  }
+
+  //Routes to logout page
+  logOut(){
+    localStorage.removeItem('userName'); // Delete the userName from localStorage
+    this.userName = null;
+    this.router.navigate(['/'], { skipLocationChange: true });
+    this.loginButton.style.visibility="visible";
+    this.signUpButton.style.visibility="visible";
+    this.logOutButton.style.visibility="hidden";
+  }
+
+  changeSpeech(text:string){
+    this.speachBubble.innerHTML = text;
+  }
 
 }

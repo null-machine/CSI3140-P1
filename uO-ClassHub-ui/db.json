@@ -1,0 +1,38 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "signupUsers": [
+    {
+      "fullname": "sel",
+      "email": "sel",
+      "password": "sel",
+      "id": 1
+    },
+    {
+      "fullname": "selin",
+      "email": "selin",
+      "password": "selin",
+      "id": 2
+    },
+    {
+      "fullname": "newUser",
+      "email": "sel",
+      "password": "sel",
+      "id": 3
+    },
+    {
+      "fullname": "a",
+      "email": "amail",
+      "password": "apassword",
+      "id": 4
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

@@ -47,8 +47,13 @@ export class OverviewComponent {
 
 	//Route to review page
 	makeReview(){
+		const userName = localStorage.getItem('userName');
+		if(userName == null){
+			alert("please login to make a review");
+			return;
+		}
 	    this.router.navigate(['/review', this.courseCode]);
-	  }
+	}
 
 
 }

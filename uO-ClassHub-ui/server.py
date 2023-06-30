@@ -126,7 +126,7 @@ def putReviewIntoDatabase():
     connection.commit()
 
     # Retrieves the reviews for the specified course
-    data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    data = cursor.execute("SELECT * FROM reviews WHERE course = ?", (paramName,)).fetchall()
     connection.commit()
 
     return json.dumps(data)

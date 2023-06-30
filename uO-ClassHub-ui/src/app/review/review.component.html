@@ -1,6 +1,10 @@
 <div>
 	<p>Sentiment analysis for {{courseCode}}</p>
 	<input type="text" class="reviewText" placeholder="Please enter your review">
+
+	<input type="checkbox" id="anonymous" name="anoynmous" checked="checked">
+  	<label for="anoynmous">Click to review anoynmously</label><br>
+
 	<input type="number" class="stars" placeholder="Please select stars">
 	<button type="button" id="reviewButton" (click)="makeReview()">Review the course</button>
 	<br>
