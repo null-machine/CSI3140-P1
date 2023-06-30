@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ReviewComponent } from './review/review.component';
-import { OverviewComponent } from './review/overview/overview.component';
+import { OverviewComponent } from './overview/overview.component';
 import { ListReviewsComponent } from './review/list-reviews/list-reviews.component';
 import { SendReviewComponent } from './review/send-review/send-review.component';
 import {RouterOutlet} from "@angular/router";

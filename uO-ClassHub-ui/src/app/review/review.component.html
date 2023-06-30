@@ -1,4 +1,10 @@
 <div>
-	<p>Sentiment analysis for {{course}}</p>
-	<p class = "analysisResult">test</p>
+	<p>Sentiment analysis for {{courseCode}}</p>
+	<button type="button" id="review-button" (click)="makeReview()">Review the course</button>
+	<input type="text" class="reviewText" placeholder="Please enter your review">
+	<input type="number" class="stars" placeholder="Please select stars">
+	<br>
+	<br>
+	<button type="button" id="go-back-to-home" (click)="goBackToHome()">Go back to home</button>
+	<button type="button" id="see-reviews-button" (click)="seeReviews()">See reviews for {{courseCode}}</button>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router, Routes} from "@angular/router";
 import {HttpClient, HttpParams} from "@angular/common/http";
 
 @Component({
@@ -8,22 +8,43 @@ import {HttpClient, HttpParams} from "@angular/common/http";
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent implements OnInit {
-	course!: string ;
+	courseCode!: string ;
 	courseData! : Object;
-	constructor(private activatedRoute: ActivatedRoute,private httpClient:HttpClient){
+
+	textField!: HTMLInputElement;
+	stars!: HTMLInputElement;
+	constructor(private router:Router, private activatedRoute: ActivatedRoute,private httpClient:HttpClient){
 	}
 
 	ngOnInit(): void{
-		this.course = this.activatedRoute.snapshot.paramMap.get('courseId')!;
-		this.sentimentAnalysis();
+		this.courseCode = this.activatedRoute.snapshot.paramMap.get('courseId')!;
+		this.textField = document.querySelector('.reviewText') as HTMLInputElement;
+		this.stars = document.querySelector('.stars') as HTMLInputElement;
 	}
 
-	sentimentAnalysis(): any {
-	    const apiUrl = 'http://127.0.0.1:5002/review';
-	    const params = new HttpParams().set('paramName', this.course);
-	    const analysisResult = document.querySelector('.analysisResult') as HTMLInputElement;
+	goBackToHome(){
+		this.router.navigate(['/']);
+	}
 
-	    this.httpClient.get(apiUrl, { params }).subscribe((data: any) => {
+	makeReview(): any{
+		const apiUrl = 'http://127.0.0.1:5002/review';
+	    const params = new HttpParams()
+	    					.set('paramName', this.courseCode)
+	    					.set('review', this.textField.value)
+	    					.set('reviewer', 'anonymous')
+	    					.set('stars',this.stars.value);
+
+	   	this.httpClient.get(apiUrl, { params }).subscribe((data: any) => {
+	      // Handle the response data
+	      console.log(data);
+		  return data;
+	    }, (error: any) => {
+	      // Handle the error
+	      console.error(error);
+	    });
+	   /* const analysisResult = document.querySelector('.analysisResult') as HTMLInputElement;
+
+	    /*this.httpClient.get(apiUrl, { params }).subscribe((data: any) => {
 	      // Handle the response data
 	      console.log(data);
 		  const analysis = `Compound: ${data.compound}, Negative: ${data.neg}, Neutral: ${data.neu}, Positive: ${data.pos}`;
@@ -32,8 +53,12 @@ export class ReviewComponent implements OnInit {
 	    }, (error: any) => {
 	      // Handle the error
 	      console.error(error);
-	    });
-	  }
+	    });*/
+	}
+	 
+  	seeReviews(){
+    	this.router.navigate(['/overview', this.courseCode]);
+ 	 }
 
 
 }

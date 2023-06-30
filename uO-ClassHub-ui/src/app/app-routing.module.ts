@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {Routes, RouterModule} from "@angular/router";
 import {HomepageComponent} from "./homepage/homepage.component";
 import {ReviewComponent} from "./review/review.component";
-import {OverviewComponent} from "./review/overview/overview.component";
+import {OverviewComponent} from "./overview/overview.component";
 import {ListReviewsComponent} from "./review/list-reviews/list-reviews.component";
 import {SendReviewComponent} from "./review/send-review/send-review.component";
 
@@ -19,6 +19,10 @@ const routes: Routes =[
   },*/
   {
     //the courseId is a place holder that is why we use : at the beginning
+    path: 'overview/:courseId',
+    component: OverviewComponent
+  },
+  {
     path: 'review/:courseId',
     component: ReviewComponent
   },

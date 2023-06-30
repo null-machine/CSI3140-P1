@@ -75,7 +75,7 @@ def create_db():
 	cursor.execute('CREATE TABLE reviews(course, text, reviewer, stars, nltk_score)')
 	cursor.execute('''
 		INSERT INTO reviews VALUES
-			('CEG3185', 'this course is complete garbage', 'anonymous', 1, ''),
+			('CEG3185', 'AAAAAAAAAAAAAAA', 'anonymous', 1, ''),
 			('CEG3185', 'this course is great', 'anonymous', 5, ''),
 			('CSI3104', 'this course is complete garbage', 'anonymous', 1, ''),
 			('CSI3104', 'this course is great', 'anonymous', 5, '')
@@ -103,6 +103,34 @@ def get():
 	return data
 
 @app.route('/review')
+def putReviewIntoDatabase():
+    paramName = request.args.get('paramName')  # Retrieve the value of the parameter
+    review = request.args.get('review')
+    reviewer = request.args.get('reviewer')
+    stars = request.args.get('stars')
+    analysis = ""
+
+    connection = sqlite3.connect('reviews.db')
+    cursor = connection.cursor()
+    
+    # Execute the INSERT INTO statement
+    cursor.execute('''
+        INSERT INTO reviews (course, text, reviewer, stars, nltk_score)
+        VALUES (?, ?, ?, ?, ?)
+    ''', (paramName, review, reviewer, stars, analysis))
+
+    # Commit the transaction after the INSERT statement
+    connection.commit()
+
+    # Retrieve the reviews for the specified course
+    data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    connection.commit()
+
+    return json.dumps(data)
+
+
+
+@app.route('/overview')
 def sentimentAnalysis():
     paramName = request.args.get('paramName')  # Retrieve the value of the parameter
     connection = sqlite3.connect('reviews.db')

@@ -41,7 +41,6 @@ export class HomepageComponent {
   filteredOptions: string[] = [];
   //The option user selects from the filtered options
   selectedOption: string = '';
-  textDisplay: string = '';
 
 
   getAllCourseData(){
@@ -101,15 +100,6 @@ export class HomepageComponent {
     });
   }
 
-  //Displays the courseinformation on the console
-  searchCourse(){
-    //Filters the coursesArray according to selected option
-    const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[0] === this.selectedOption);
-    this.textDisplay = selectedOptionValues + "";
-    this.courseCode = this.selectedOption;
-    this.router.navigate(['/review', this.courseCode]);
-  }
-
   verifySelectedOption(){
     const searchInput = document.querySelector('.search-input') as HTMLInputElement;
     const input = searchInput.value;
@@ -125,6 +115,10 @@ export class HomepageComponent {
 
 
   clickButton(){
+    //Filters the coursesArray according to selected option
+    const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[0] === this.selectedOption);
+    this.courseCode = this.selectedOption;
+
     const verificationPassed = this.verifySelectedOption();
     if(verificationPassed){
       this.speachBubble.innerHTML = "Please select one of the values";
@@ -137,8 +131,13 @@ export class HomepageComponent {
     }
   }
 
+  //Displays the courseinformation on the console
   seeReviews(){
+    this.router.navigate(['/overview', this.courseCode]);
+  }
 
+  makeReview(){
+    this.router.navigate(['/review', this.courseCode]);
   }
 
 
