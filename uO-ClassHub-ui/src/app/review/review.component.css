@@ -1,0 +1,130 @@
+div{
+	margin-bottom:30px;
+}
+/* Add margin or padding to elements below the header */
+.content {
+  margin-top: 10em; /* Adjust the value to create desired space */
+}
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+h1{
+	font-family: 'Prata', serif;
+	padding-top: 3%;
+	padding-left: 5%;
+	font-size: 50px;
+	opacity: 0.8;
+}
+.robot {
+ position: fixed;
+  top: 50%;
+  right: 0%;
+  transform: translate(0, -50%);
+}
+#robot{
+  width:35em;
+  height:30em;
+}
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  color: white;
+  height: 8em;
+}
+.footer{
+	background-color: black;
+  height: 8em;
+}
+
+.box {
+	font-size: 1.5em;
+	margin-left: 5em;
+    flex-direction: column;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      background-color: white;
+      border-color: white;
+      width: 20em;
+      border-radius: 10em; /* Adjust the value as needed */
+}
+.reviewText{
+
+	margin-left: 6em;
+  	width: 50%;
+	height: 200px;
+	font-size: 16px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.stars {
+
+  align-items: center; /* Center align items horizontally */
+  justify-content: center; /* Center align items vertically */
+  
+}
+#stars{
+	float: right;
+	border-radius: 10em;
+	width: 5em;
+}
+
+.anonymousMode {
+  background-color: black;
+  color:white;
+  /* Add other styles to indicate the button is clicked */
+}
+
+#anonymousButton{
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 20em;
+    border-radius: 10em; /* Adjust the value as needed */
+
+}
+.checkmark {
+	position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  background-image: url("/assets/checkMark.gif"); /* Replace with your checkmark image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+
+.speech_bubble{
+	top: 30%;
+ 	right: 70%;
+	position: absolute;
+	justify-content: center;
+	text-align: center;
+	font-size: 20px;
+	color: white;
+	width: 30%;
+	height: 20%;
+	padding: 2%;
+	border-radius: 50em;
+	background-color: #2c2444;
+	animation: moveTitle 3.5s linear infinite;
+	display: flex; /* Add this line */
+  	align-items: center; /* Add this line */
+
+}
+
+@keyframes moveTitle {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

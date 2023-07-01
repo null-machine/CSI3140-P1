@@ -20,6 +20,19 @@ export class SignupComponent {
 		})
 	}
 	signUp(){
+		const userName= this.signupForm.get('fullname')?.value;
+		const userEmail = this.signupForm.get('email')?.value;
+		const userPassword = this.signupForm.get('password')?.value;
+		console.log(userName);
+
+		if(userName === '' || userEmail ==='' || userPassword ===''){
+			alert("Please fill all values");
+			return;
+		}
+		if(!this.validEmail(userEmail)){
+			alert("Enter valid email");
+			return;
+		}
 		this.http.post<any>("http://localhost:3000/signupUsers", this.signupForm.value)
 		.subscribe(res=>{
 			this.signupForm.reset();
@@ -27,6 +40,12 @@ export class SignupComponent {
 		},err=>{
 			alert("Error occured")
 		})
+	}
+
+	validEmail(email:string):boolean{
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email) 
+
 	}
 
 }

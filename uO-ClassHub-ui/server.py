@@ -90,12 +90,14 @@ def create_db():
 
 @app.route('/home')
 def get():
+
 	#if request.method == 'GET':
 
 	connection = sqlite3.connect('reviews.db')
 	cursor = connection.cursor()
 	connection.commit()
-	data = cursor.execute("SELECT * FROM reviews").fetchall()
+	data = cursor.execute("SELECT * FROM courses").fetchall()
+
 		#print(data)
 
 	connection.commit()
@@ -107,29 +109,21 @@ def get():
 @app.route('/review')
 def putReviewIntoDatabase():
 
+
 	# Retrieves the values of the passed in parameters
-    paramName = request.args.get('paramName')  
-    review = request.args.get('review')
-    reviewer = request.args.get('reviewer')
-    stars = request.args.get('stars')
-    analysis = ""
-
-    connection = sqlite3.connect('reviews.db')
-    cursor = connection.cursor()
-    
-    # Puts all the passed in parameters into the database
-    cursor.execute('''
-        INSERT INTO reviews (course, text, reviewer, stars, nltk_score)
-        VALUES (?, ?, ?, ?, ?)
-    ''', (paramName, review, reviewer, stars, analysis))
-
-    connection.commit()
-
-    # Retrieves the reviews for the specified course
-    data = cursor.execute("SELECT * FROM reviews WHERE course = ?", (paramName,)).fetchall()
-    connection.commit()
-
-    return json.dumps(data)
+	paramName = request.args.get('paramName')  
+	review = request.args.get('review')
+	reviewer = request.args.get('reviewer')
+	stars = request.args.get('stars')
+	analysis = ""
+	connection = sqlite3.connect('reviews.db')
+	cursor = connection.cursor()
+	cursor.execute(''' INSERT INTO reviews (course, text, reviewer, stars, nltk_score) VALUES (?, ?, ?, ?, ?)''', (paramName, review, reviewer, stars, analysis))
+	connection.commit()
+	# Retrieves the reviews for the specified course
+	data = cursor.execute("SELECT * FROM reviews WHERE course = ?", (paramName,)).fetchall()
+	connection.commit()
+	return json.dumps(data)
 
 
 
@@ -144,12 +138,12 @@ def sentimentAnalysis():
     # Gets the reviews from the data
     # Comma is important! It is a tuple
     data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
-    reviewAndUser = cursor.execute("SELECT text, reviewer FROM reviews WHERE course = ?", (paramName,)).fetchall()
-    oneStar = cursor.execute("SELECT stars FROM reviews WHERE stars = 1 AND course = ?", (paramName,)).fetchall()
-    twoStars = cursor.execute("SELECT stars FROM reviews WHERE stars = 2 AND course = ?", (paramName,)).fetchall()
-    threeStars = cursor.execute("SELECT stars FROM reviews WHERE stars = 3 AND course = ?", (paramName,)).fetchall()
-    fourStars = cursor.execute("SELECT stars FROM reviews WHERE stars = 4 AND course = ?", (paramName,)).fetchall()
-    fiveStars = cursor.execute("SELECT stars FROM reviews WHERE stars = 5 AND course = ?", (paramName,)).fetchall()
+    reviewAndUser = cursor.execute("SELECT text, reviewer,stars FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    oneStar = cursor.execute("SELECT stars FROM reviews WHERE stars = '1' AND course = ?", (paramName,)).fetchall()
+    twoStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '2' AND course = ?", (paramName,)).fetchall()
+    threeStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '3' AND course = ?", (paramName,)).fetchall()
+    fourStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '4' AND course = ?", (paramName,)).fetchall()
+    fiveStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '5' AND course = ?", (paramName,)).fetchall()
     stars = [len(oneStar), len(twoStars), len(threeStars), len(fourStars), len(fiveStars)]
     print(data)
     connection.commit()

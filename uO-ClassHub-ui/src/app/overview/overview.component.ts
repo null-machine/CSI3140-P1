@@ -34,9 +34,6 @@ export class OverviewComponent {
 	      this.stars = data.stars;
 	      const reviewsText = document.querySelector('#reviews') as HTMLInputElement;
 	      const container = document.getElementById('container')!;
-	      const reviews: string[] = data.reviews.map((list: string[]): string => {
-			  return list[0];
-			});
 	      //reviewsText.innerHTML = reviews.join(', ');
 	      this.reviews = data.reviews;
 	      
@@ -48,6 +45,9 @@ export class OverviewComponent {
 			  	const listItem2 = document.createElement('li');
 			  	listItem2.textContent = "Review = " + userAndReview[0];
 			  	listItem.appendChild(listItem2);
+			  	const listItem3 = document.createElement('li');
+			  	listItem3.textContent = "Stars given= " + userAndReview[2];
+			  	listItem.appendChild(listItem3);
 			  	listItem.style.backgroundColor = "#808080";
 			  	listItem.style.margin = "10px";
 			 	container.appendChild(listItem);

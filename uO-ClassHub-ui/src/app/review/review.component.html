@@ -1,14 +1,50 @@
-<div>
-	<p>Sentiment analysis for {{courseCode}}</p>
-	<input type="text" class="reviewText" placeholder="Please enter your review">
+<body class="container">
+	<div class="header">
+		<h1>{{courseCode}}</h1>
+	</div>
+	<div class="content">
+		<div class = "robot">
+			<img id="robot" src="../assets/robot.gif" alt="icon">
+			  <div class ="speech_bubble">
+			    <p id = "speech">Please give us your reviews on {{courseCode}}</p>
+			  </div>
+		</div>	
+		
+		<div class="checkmark" id="checkmark">
+		</div>
 
-	<input type="checkbox" id="anonymous" name="anoynmous" checked="checked">
-  	<label for="anoynmous">Click to review anoynmously</label><br>
+		<div>
+			<button class="box" id="anonymousButton" (click) ="setAnonymous()">Click to review anoynmously</button>
+		</div>
 
-	<input type="number" class="stars" placeholder="Please select stars">
-	<button type="button" id="reviewButton" (click)="makeReview()">Review the course</button>
-	<br>
-	<br>
-	<button type="button" id="go-back-to-home" (click)="goBackToHome()">Go back to home</button>
-	<button type="button" id="seeReviewsButton" (click)="seeReviews()">See reviews for {{courseCode}}</button>
-</div>
+	  	<div class= "stars">
+	  		<div class="box">
+	  			<label for="stars">Select a rating: </label>
+				<select id="stars" name="stars">
+				  <option value="1">1</option>
+				  <option value="2">2</option>
+				  <option value="3">3</option>
+				  <option value="4">4</option>
+				  <option value="5">5</option>
+				</select>
+	  			
+	  		</div>
+	  	</div>
+
+		<textarea class = "reviewText" type="text" placeholder="Please enter your review"></textarea>
+
+	  	<div>
+			<button class ="box"type="button" id="reviewButton" (click)="makeReview()">Review the course</button>  		
+	  	</div>
+
+		<button class = "box" type="button" id="go-back-to-home" (click)="goBackToHome()">Go back to home</button>
+		<button class = "box" type="button" id="seeReviewsButton" (click)="seeReviews()">See reviews for {{courseCode}}</button>
+		
+	</div>
+
+
+
+	<div class="footer">
+	</div>
+
+</body>
