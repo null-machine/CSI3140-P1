@@ -1,0 +1,10 @@
+.reviews{
+  height: 200px; /* Set the desired height */
+  overflow: auto; /* Enable scrolling when content overflows */
+  /* Additional styles if needed */
+}
+
+
+.reviews{
+  width: 50%;
+}

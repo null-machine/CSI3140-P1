@@ -10,11 +10,14 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 export class OverviewComponent {
 	courseCode!: string ;
 	courseData! : Object;
+	stars!: number[];
+	reviews!: string;
 
 	constructor(private router:Router, private activatedRoute: ActivatedRoute,private httpClient:HttpClient){
 	}
 
 	ngOnInit(): void{
+		this.stars = [0,0,0,0,0]
 		this.courseCode = this.activatedRoute.snapshot.paramMap.get('courseId')!;
 		this.sentimentAnalysis();
 	}
@@ -27,10 +30,32 @@ export class OverviewComponent {
 	    //Connects to http://127.0.0.1:5002/overview which has the sentiment analysis method
 	    //Gets the sentiment analysis and puts it into the analysisResult html field
 	    this.httpClient.get(apiUrl, { params }).subscribe((data: any) => {
-	      console.log(data);
+	      console.log(data.stars);
+	      this.stars = data.stars;
+	      const reviewsText = document.querySelector('#reviews') as HTMLInputElement;
+	      const container = document.getElementById('container')!;
+	      const reviews: string[] = data.reviews.map((list: string[]): string => {
+			  return list[0];
+			});
+	      //reviewsText.innerHTML = reviews.join(', ');
+	      this.reviews = data.reviews;
+	      
+		data.reviews.forEach((userAndReview: string) => {
+				const listItem = document.createElement('ul');
+			    const listItem1 = document.createElement('li');
+			  	listItem1.textContent = "Reviewer = " + userAndReview[1];
+			  	listItem.appendChild(listItem1);
+			  	const listItem2 = document.createElement('li');
+			  	listItem2.textContent = "Review = " + userAndReview[0];
+			  	listItem.appendChild(listItem2);
+			  	listItem.style.backgroundColor = "#808080";
+			  	listItem.style.margin = "10px";
+			 	container.appendChild(listItem);
+			 
+			});
 
 	      //Analysis results
-		  const analysis = `Compound: ${data.compound}, Negative: ${data.neg}, Neutral: ${data.neu}, Positive: ${data.pos}`;
+		  const analysis = `Compound: ${data.analysis.compound}, Negative: ${data.analysis.neg}, Neutral: ${data.analysis.neu}, Positive: ${data.analysis.pos}`;
 		  analysisResult.innerHTML = analysis; 
 
 		  return data;

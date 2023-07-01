@@ -144,6 +144,13 @@ def sentimentAnalysis():
     # Gets the reviews from the data
     # Comma is important! It is a tuple
     data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    reviewAndUser = cursor.execute("SELECT text, reviewer FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    oneStar = cursor.execute("SELECT stars FROM reviews WHERE stars = 1 AND course = ?", (paramName,)).fetchall()
+    twoStars = cursor.execute("SELECT stars FROM reviews WHERE stars = 2 AND course = ?", (paramName,)).fetchall()
+    threeStars = cursor.execute("SELECT stars FROM reviews WHERE stars = 3 AND course = ?", (paramName,)).fetchall()
+    fourStars = cursor.execute("SELECT stars FROM reviews WHERE stars = 4 AND course = ?", (paramName,)).fetchall()
+    fiveStars = cursor.execute("SELECT stars FROM reviews WHERE stars = 5 AND course = ?", (paramName,)).fetchall()
+    stars = [len(oneStar), len(twoStars), len(threeStars), len(fourStars), len(fiveStars)]
     print(data)
     connection.commit()
 
@@ -152,12 +159,23 @@ def sentimentAnalysis():
 
     # Puts all reviews into a string to be analyzed by the sentiment anlayser
     reviews = ''
+    reviewArray = {
+    	'userName': [],
+    	'review': []
+    }
+    print(reviewAndUser)
     for text in data:
         reviews += text[0] + " "
+
     print(reviews)
     analysis = sia.polarity_scores(reviews)
+    result = {
+        'analysis': analysis,
+        'stars': stars,
+        'reviews' : reviewAndUser
+    }
 
-    return json.dumps(analysis)
+    return json.dumps(result)
 
 
 #api.add_resource(Courses,'/courses') #Route 1
