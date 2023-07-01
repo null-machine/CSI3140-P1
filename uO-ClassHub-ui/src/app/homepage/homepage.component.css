@@ -18,6 +18,7 @@ body{
   height: 50%;
    position: absolute;
    visibility: hidden;
+   top:70%;
   left: 60%;
 }
 #goBackImg{
@@ -52,7 +53,7 @@ body{
   /*font-family: 'Chakra Petch', sans-serif;*/
   font-family: 'Prata', serif;
   position:relative;
-  color: grey;
+  color: #cacdd0;
   transform: rotate(-25deg);
   position:relative;
   margin-right: auto;

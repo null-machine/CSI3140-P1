@@ -85,14 +85,18 @@ export class ReviewComponent implements OnInit {
  			this.anonymousButton.classList.add('anonymousMode');
  			this.anonymousButton.innerHTML = "Click back to review as " + this.userName; 
  			this.userName = 'anonymous';
- 			document.body.style.backgroundColor = "#111111";
+ 			document.body.style.backgroundColor = "black";
  			this.changeSpeech("Anonymous mode activated");
+ 			(document.querySelector('.header')! as HTMLInputElement).style.backgroundColor = "black";
+ 			(document.querySelector('.footer')! as HTMLInputElement).style.backgroundColor = "black";
  		}else{
  			this.anonymousButton.classList.remove('anonymousMode');
  			this.userName = localStorage.getItem('userName')!;
  			this.anonymousButton.innerHTML = "Click to review anonymously"; 
  			this.changeSpeech("Reviewing as " + this.userName);
  			document.body.style.backgroundColor = "white";
+ 			(document.querySelector('.header')! as HTMLInputElement).style.backgroundColor = "#cacdd0 ";
+ 			(document.querySelector('.footer')! as HTMLInputElement).style.backgroundColor = "#cacdd0 ";
  		}
  	}
 

@@ -66,6 +66,12 @@
       "email": "selinkararmaz1@gmail.com",
       "password": "s",
       "id": 10
+    },
+    {
+      "fullname": "sel666",
+      "email": "sel@gmail.com",
+      "password": "sel666",
+      "id": 11
     }
   ],
   "profile": {
