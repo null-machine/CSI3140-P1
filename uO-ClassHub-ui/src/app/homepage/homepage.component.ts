@@ -86,19 +86,24 @@ export class HomepageComponent {
   }
 
 
-  filterOptions(target: EventTarget | null) {
-    if (target instanceof HTMLInputElement && target.value !== null) {
-      const searchValue = target.value;
-      //Compares all course codes to the input user enters
-      //Puts all filtered options into a list so that the li elements can display the list
-      //"let option of filteredOptions" in html
-      this.filteredOptions = this.courseCodes.filter(option =>
-        option.toLowerCase().includes(searchValue.toLowerCase())
-      );
-    } else {
-      this.filteredOptions = [];
-    }
+filterOptions(target: EventTarget | null) {
+  if (!(target instanceof HTMLInputElement) || target.value === null) {
+    this.filteredOptions = [];
+    return;
   }
+
+  const searchValue = target.value.toLowerCase();
+  let matchingCount = 0;
+
+  this.filteredOptions = this.courseCodes.filter(option => {
+    const isMatching = option.toLowerCase().startsWith(searchValue);
+    if (isMatching) {
+      matchingCount++;
+    }
+    //STOP AFTER 4 OPTIONS TO MAKE SEARCHING FASTER
+    return isMatching && matchingCount <= 4;
+  });
+}
 
   selectOption(option: string) {
     //When user clicks on the list element puts the clicked item inside the selectedOption
