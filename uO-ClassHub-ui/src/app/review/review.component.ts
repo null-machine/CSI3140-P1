@@ -27,7 +27,7 @@ export class ReviewComponent implements OnInit {
 		if(this.userName === null){
 			this.router.navigate(['/']);
 		}
-		this.speechBubble = document.querySelector('.speech_bubble')!;
+		this.speechBubble = document.querySelector('.speech_bubble_review')!;
 		this.courseCode = this.activatedRoute.snapshot.paramMap.get('courseId')!;
 		this.courseCodeShortened = this.courseCode.slice(0,8);
 		this.textField = document.querySelector('.reviewText') as HTMLInputElement;

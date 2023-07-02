@@ -20,6 +20,8 @@ export class OverviewComponent {
 	speachBubble!: HTMLElement;
 	image!: HTMLImageElement;
 	barColor!: string;
+	course_description!: string;
+	speechBubbleText = "";
 
   loginButton!: HTMLElement;
   signUpButton!: HTMLElement;
@@ -41,7 +43,7 @@ export class OverviewComponent {
 		this.loginButton = document.querySelector('#loginButton') as HTMLInputElement;
 	    this.signUpButton = document.querySelector('#signUpButton') as HTMLInputElement;
 	    this.logOutButton = document.querySelector('#logOutButton') as HTMLInputElement;
-	    this.speachBubble = document.querySelector('#speechText2') as HTMLElement;
+	    this.speachBubble = document.querySelector('#speechTextOverview') as HTMLElement;
 	    this.image = document.querySelector('#image') as HTMLImageElement;
 	    this.userName = localStorage.getItem('userName');
 	    if(this.userName === null){
@@ -85,6 +87,8 @@ export class OverviewComponent {
 		  	      this.reviews = data.reviews;
 	      const emotion = Math.max(data.analysis.neg,data.analysis.neu,data.analysis.pos);
 	      console.log(emotion);
+	      this.course_description = data.courseDesc;
+	      console.log(data.courseDesc);
 		  if(emotion === data.analysis.neu){
 	      	this.image.src= "../assets/negative.png";
 	      	this.barColor = "blue";
@@ -176,8 +180,9 @@ export class OverviewComponent {
   }
 
   changeSpeech(text:string){
-    this.speachBubble.innerHTML = text;
+    this.speechBubbleText = text;
   }
+
 
 
 

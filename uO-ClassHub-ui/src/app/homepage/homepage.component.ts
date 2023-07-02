@@ -79,7 +79,7 @@ export class HomepageComponent {
      //Puts all the courses into an array
      this.coursesArray = Object.values(this.courseData);
      //Puts all the UNIQUE course codes into an array
-     this.courseCodes = Array.from(new Set(allCodes));
+     this.courseCodes = allCodes;
 
   
     })

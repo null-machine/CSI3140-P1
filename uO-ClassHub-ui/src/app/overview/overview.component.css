@@ -7,20 +7,20 @@
   color:white;
 }
 .robot {
- position: fixed;
-  top: 50%;
-  right: 0%;
-  transform: translate(0, -50%);
+ 	position: fixed;
+  	top: 50%;
+  	right: 0%;
+  	transform: translate(0, -50%);
 }
 #robot{
+	top: 30%;
   width:35em;
   height:30em;
 }
-.speech_bubble{
-	top: 20%;
+.speech_bubble_overview{
+	top: 10%;
  	right: 70%;
-	position: absolute;
-	justify-content: center;
+ 	position: fixed;
 	text-align: center;
 	font-size: 20px;
 	color: white;
@@ -28,8 +28,8 @@
 	border-radius: 50em;
 	background-color: #2c2444;
 	animation: moveTitle 3.5s linear infinite;
-  display: inline-block;
-  align-items: center; 
+  	display: inline-block;
+  	align-items: center; 
 
 }
 
@@ -129,6 +129,7 @@ body {
 
 .emotion{
 	margin-top:10em;
+	margin-left:3em;
 
 }
 
@@ -137,9 +138,11 @@ body {
   border-radius: 50px;
   animation: image-appear 3s ease forwards;
   height:14em;
-  margin-left:2em;
   width:14em;
 }
 .emotion img:hover{
   transform: scale(1.1);
+}
+#course_description{
+	width: 30%;
 }

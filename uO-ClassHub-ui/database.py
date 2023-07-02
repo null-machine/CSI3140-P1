@@ -37,13 +37,28 @@ async def scrape_course_names(courseCode):
 
     course_names = []
     soup = BeautifulSoup(data, 'html.parser')
-    li_elements = soup.select('.courseblocktitle')
+    li_elements = soup.select('.courseblock')
+   # print(len(li_elements))
 
     for element in li_elements:
-        name = element.get_text().strip()
-        course_names.append(name)
+        course = ['coursename', 'coursedesc']  # Create a new list for each course
+        title_element = element.select_one('.courseblocktitle')
+        course_desc = element.select_one('.courseblockdesc')
+        name = title_element.get_text().strip().replace("\xa0", " ")
+
+        if course_desc is None:
+            course[1] = "There's no description for this course"
+        else:
+            description_text = course_desc.get_text().strip()
+            course[1] = description_text
+
+        course[0] = name
+        course_names.append(course)
 
     return course_names
+
+
+
 
 async def main():
     try:
@@ -51,8 +66,8 @@ async def main():
         cursor = connection.cursor()
 
         course_codes = await scrape_course_codes()
-        cursor.execute('''DROP TABLE courses''')
-        cursor.execute('''CREATE TABLE courses(course_name, course_code)''')
+  #      cursor.execute('''DROP TABLE courseInformation''')
+   #     cursor.execute('''CREATE TABLE courseInformation(course_name, course_code, course_desc)''')
      #course_name course_code
 
 
@@ -61,14 +76,16 @@ async def main():
            # print(course)
             courseSliced = course[-4:-1].lower()
             course_names = await scrape_course_names(courseSliced)
-            
+           # print(course_names[0])
             for courseName in course_names:
-                cursor.execute(''' INSERT INTO courses  VALUES (?, ?)''', (course, courseName.replace('\xa0', ' ')))
+                i = 0
+               # print(courseName)
+              #  cursor.execute(''' INSERT INTO courseInformation  VALUES (?, ?, ?)''', (course, courseName[0], courseName[1]))
             # Insert course names into the corresponding columns
        
-        data  = cursor.execute(''' SELECT * FROM courses''').fetchall()
-       # print(json.dumps(data))
-        print(data)
+        data  = cursor.execute(''' SELECT * FROM courseInformation''').fetchall()
+        print(json.dumps(data))
+       # print('he')
         connection.commit()
         connection.close()
     except Exception as error:

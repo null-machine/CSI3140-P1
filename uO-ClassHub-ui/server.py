@@ -100,9 +100,9 @@ def get():
 	connection = sqlite3.connect('courses_database.db')
 	cursor = connection.cursor()
 	connection.commit()
-	data = cursor.execute("SELECT * FROM courses").fetchall()
+	data = cursor.execute("SELECT * FROM courseInformation").fetchall()
 
-		#print(data)
+	print(data)
 
 	connection.commit()
 		
@@ -136,12 +136,16 @@ def sentimentAnalysis():
 	# Retrieves the value of the parameter
     paramName = request.args.get('paramName')  
     connection = sqlite3.connect('reviews.db')
+    connection2 = sqlite3.connect('courses_database.db')
     cursor = connection.cursor()
+    cursor2 = connection2.cursor()
     connection.commit()
+    connection2.commit()
 
     # Gets the reviews from the data
     # Comma is important! It is a tuple
     data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    courseDesc = cursor2.execute("SELECT course_desc FROM courseInformation WHERE course_code = ?", (paramName,)).fetchall()[0]
     reviewAndUser = cursor.execute("SELECT text, reviewer,stars FROM reviews WHERE course = ?", (paramName,)).fetchall()
     oneStar = cursor.execute("SELECT stars FROM reviews WHERE stars = '1' AND course = ?", (paramName,)).fetchall()
     twoStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '2' AND course = ?", (paramName,)).fetchall()
@@ -151,6 +155,7 @@ def sentimentAnalysis():
     stars = [len(oneStar), len(twoStars), len(threeStars), len(fourStars), len(fiveStars)]
     print(data)
     connection.commit()
+    connection2.commit()
 
     # Initialize sentiment analyzer
     sia = SentimentIntensityAnalyzer()
@@ -168,6 +173,7 @@ def sentimentAnalysis():
     print(reviews)
     analysis = sia.polarity_scores(reviews)
     result = {
+    	'courseDesc': courseDesc,
         'analysis': analysis,
         'stars': stars,
         'reviews' : reviewAndUser
