@@ -5,13 +5,16 @@ from flask_restful import Resource, Api
 from json import dumps
 from flask_jsonpify import jsonify
 import sqlite3
+import json
 
 #  py -m flask run
-
+import nltk
+nltk.downloader.download('vader_lexicon')
 app = Flask(__name__)
 api = Api(app)
 
 CORS(app)
+
 
 @app.route('/')
 def endpoint():
@@ -20,7 +23,7 @@ def endpoint():
 		cursor = connection.cursor()
 		cursor.execute(request.args['query'])
 		rows = cursor.fetchall()
-		# print('hello there')
+		print('hello there')
 		# print(request.args['query'])
 		# print(rows)
 		return rows
@@ -73,21 +76,113 @@ def create_db():
 	cursor.execute('CREATE TABLE reviews(course, text, reviewer, stars, nltk_score)')
 	cursor.execute('''
 		INSERT INTO reviews VALUES
-			('CEG3185', 'this course is complete garbage', 'anonymous', 1, ''),
+			('CEG3185', 'AAAAAAAAAAAAAAA', 'anonymous', 1, ''),
 			('CEG3185', 'this course is great', 'anonymous', 5, ''),
 			('CSI3104', 'this course is complete garbage', 'anonymous', 1, ''),
 			('CSI3104', 'this course is great', 'anonymous', 5, '')
 	''')
 	connection.commit()
 
-class Courses(Resource):
-        def get(self):
-                return {'courses':[{'id':1, 'name':'CSI3185'},{'id':2, 'name':'CSI3140'}]}
+#<<<<<<< Updated upstream
+#class Courses(Resource):
+ #       def get(self):
+  #              return {'courses':[{'id':1, 'name':'CSI3185'},{'id':2, 'name':'CSI3140'}]}
 
 
-api.add_resource(Courses,'/courses') #Route 1
-# api.add_resource(Review, '/courses/<course_id>')
 
+#>>>>>>> Stashed changes
+
+@app.route('/home')
+def get():
+
+	#if request.method == 'GET':
+
+	connection = sqlite3.connect('courses_database.db')
+	cursor = connection.cursor()
+	connection.commit()
+	data = cursor.execute("SELECT * FROM courseInformation").fetchall()
+
+	print(data)
+
+	connection.commit()
+		
+	return data
+
+##########################################################################3
+
+@app.route('/review')
+def putReviewIntoDatabase():
+
+
+	# Retrieves the values of the passed in parameters
+	paramName = request.args.get('paramName')  
+	review = request.args.get('review')
+	reviewer = request.args.get('reviewer')
+	stars = request.args.get('stars')
+	analysis = ""
+	connection = sqlite3.connect('reviews.db')
+	cursor = connection.cursor()
+	cursor.execute(''' INSERT INTO reviews (course, text, reviewer, stars, nltk_score) VALUES (?, ?, ?, ?, ?)''', (paramName, review, reviewer, stars, analysis))
+	connection.commit()
+	# Retrieves the reviews for the specified course
+	data = cursor.execute("SELECT * FROM reviews WHERE course = ?", (paramName,)).fetchall()
+	connection.commit()
+	return json.dumps(data)
+
+
+
+@app.route('/overview')
+def sentimentAnalysis():
+	# Retrieves the value of the parameter
+    paramName = request.args.get('paramName')  
+    connection = sqlite3.connect('reviews.db')
+    connection2 = sqlite3.connect('courses_database.db')
+    cursor = connection.cursor()
+    cursor2 = connection2.cursor()
+    connection.commit()
+    connection2.commit()
+
+    # Gets the reviews from the data
+    # Comma is important! It is a tuple
+    data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    courseDesc = cursor2.execute("SELECT course_desc FROM courseInformation WHERE course_code = ?", (paramName,)).fetchall()[0]
+    reviewAndUser = cursor.execute("SELECT text, reviewer,stars FROM reviews WHERE course = ?", (paramName,)).fetchall()
+    oneStar = cursor.execute("SELECT stars FROM reviews WHERE stars = '1' AND course = ?", (paramName,)).fetchall()
+    twoStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '2' AND course = ?", (paramName,)).fetchall()
+    threeStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '3' AND course = ?", (paramName,)).fetchall()
+    fourStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '4' AND course = ?", (paramName,)).fetchall()
+    fiveStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '5' AND course = ?", (paramName,)).fetchall()
+    stars = [len(oneStar), len(twoStars), len(threeStars), len(fourStars), len(fiveStars)]
+    print(data)
+    connection.commit()
+    connection2.commit()
+
+    # Initialize sentiment analyzer
+    sia = SentimentIntensityAnalyzer()
+
+    # Puts all reviews into a string to be analyzed by the sentiment anlayser
+    reviews = ''
+    reviewArray = {
+    	'userName': [],
+    	'review': []
+    }
+    print(reviewAndUser)
+    for text in data:
+        reviews += text[0] + " "
+
+    print(reviews)
+    analysis = sia.polarity_scores(reviews)
+    result = {
+    	'courseDesc': courseDesc,
+        'analysis': analysis,
+        'stars': stars,
+        'reviews' : reviewAndUser
+    }
+
+    return json.dumps(result)
+
+
+#api.add_resource(Courses,'/courses') #Route 1
 
 if __name__ =='__main__':
-        app.run(port = 5002)
+    app.run(port = 5002)

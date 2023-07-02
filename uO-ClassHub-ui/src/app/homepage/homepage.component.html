@@ -1,18 +1,58 @@
+
+<body>
+  
 <div class="main"> 
   <p>homepage works!</p>
-  <img id="icon" src="../assets/icon.png" alt="icon">
-  <div class="search-bar">
-   
-    <input type="text" id="course-code" #box
-           (keyup)="getValue(box.value)">
-  <!--  <button (click)="switchCoursePage()" >Search</button>-->
-    <button type="button" (click)="search()">Go to course main</button>
+  <!--<h1 id = "homepage_title"><em>Edusentia</em></h1>-->
+
+  <button type="button" id="see-reviews-button" (click)="seeReviews()">See reviews</button>
+  <button type="button" id="review-button" (click)="makeReview()">Review the course</button>
+  <div>
+  <button type="button" id = "signUpButton_home" (click)="signUp()">Sign up</button>
+  <button type="button" id = "loginButton_home" (click)="login()">Login</button>
+  <button type="button" id = "logOutButton_home" (click)="logOut()">Log out</button>
+  </div>
+
+  <div class ="speech_bubble">
+    <p id = "speechText">Welcome {{userName}}</p>
+  </div>
+
+
+
+    <img id="icon" src="../assets/robot.gif" alt="icon">
+
+
+   <!-- <select id = "course_code_dropdown" (change)="handleDropdownSelection($event)">
+      <option value="">Course codes</option>
+      <option *ngFor="let option of courseCodes" [value]="option">{{ option }}</option>
+    </select>-->
+
+    
+    <div class="search-bar">
+      <div class="search-input-container">
+        <input type="text" class="search-input" placeholder="Search" (input)="filterOptions($event.target)" />
+
+        <ul class="filtered-options" *ngIf="filteredOptions.length > 0">
+          <li *ngFor="let option of filteredOptions" (click)="selectOption(option)">{{ option }}</li>
+        </ul>
+      </div>
+
+    <button type="button" class="button" id="go-button" (click)="clickButton()">Go</button>
+
+  <!--  <button (click)="switchCoursePage()" >Search</button>
+    <button id = course_main_button, type="button" (click)="search()">Go to course main</button>
     <div>
       <button  (click)="getAllCourseData()">Get all Course Data</button>
       <p>{{courseData | json}}</p>
-    </div>
-  
+    </div>-->
+
+  </div >
+
+  <div class = "goBack">
+    <img src="../assets/goBack.png" alt="go back button" id="goBackImg">
+    <button type="button" class= "button" id="go-back-button" (click)="goBack()">Go Back</button>
   </div>
+    
   <div class="test">
     <div class="emotion">
       <img  src="../assets/negative.png" alt="icon">
@@ -20,6 +60,60 @@
       <img  src="../assets/positive.png" alt="icon">
     </div>
 
+
   </div>
+
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+    <div class ="circle">.</div>
+
+
   
-</div>
+  </div>
+
+
+</body>

@@ -1,0 +1,160 @@
+div{
+	margin-bottom:30px;
+}
+/* Add margin or padding to elements below the header */
+.content {
+  margin-top: 10em; /* Adjust the value to create desired space */
+}
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+h1{
+
+	font-family: 'Prata', serif;
+	padding-top: 2%;
+	padding-left: 5%;
+	font-size: 2.8vw;
+	opacity: 0.8;
+}
+.robot {
+ position: fixed;
+  top: 50%;
+  right: 0%;
+  transform: translate(0, -50%);
+}
+#robot{
+  width:35em;
+  height:30em;
+}
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #cacdd0 ;
+  color: white;
+  height: 8em;
+}
+.footer {
+
+  background-color: #cacdd0 ;
+  color: white;
+  height: 8em;
+}
+
+
+.box {
+	font-size: 1.5em;
+	margin-left: 5em;
+    flex-direction: column;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      background-color: white;
+      border-color: white;
+      width: 20em;
+      border-radius: 10em; /* Adjust the value as needed */
+}
+.reviewText{
+
+	margin-left: 6em;
+  	width: 50%;
+	height: 200px;
+	font-size: 16px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.stars {
+
+  align-items: center; /* Center align items horizontally */
+  justify-content: center; /* Center align items vertically */
+  
+}
+#stars{
+	float: right;
+	border-radius: 10em;
+	width: 5em;
+}
+
+.anonymousMode {
+  background-color: black;
+  color:white;
+  /* Add other styles to indicate the button is clicked */
+}
+
+#anonymousButton{
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 20em;
+    border-radius: 10em; /* Adjust the value as needed */
+
+}
+.checkmark {
+	position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  background-image: url("/assets/checkMark.gif"); /* Replace with your checkmark image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+
+.speech_bubble_review{
+	top: 20%;
+ 	right: 70%;
+	position: absolute;
+	justify-content: center;
+	text-align: center;
+	font-size: 20px;
+	color: white;
+	padding: 5%;
+	border-radius: 50em;
+	background-color: #2c2444;
+	animation: moveTitle 3.5s linear infinite;
+  display: inline-block;
+  align-items: center; 
+
+}
+
+@keyframes moveTitle {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#animations-example-3 {
+  height: 200px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+#animations-example-3 tbody {
+  overflow-y: hidden; /* remove this to see how it works */
+}
+#animations-example-3 tbody th {
+  background-color: #fff;
+  z-index: 1;
+}
+#animations-example-3 tbody td {
+  animation: moving-bars 4s linear infinite;
+}
+@keyframes moving-bars {
+  0%  { transform: translateY( 100% ); }
+  15% { transform: translateY( 0 ); }
+}

@@ -1,29 +1,248 @@
+body{
+    margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: auto;
+}
+/*Main container*/
 .main{
-    background-color: #146189;
+  height: calc(100vh - 100px);
+    background: linear-gradient(to right bottom, white 50%, #cacdd0 50%);
     min-height: 100%;
     text-align:center;
     position: relative;
-   
+    overflow-y: scroll;
+}
+
+.goBack{
+  height: 50%;
+   position: absolute;
+   visibility: hidden;
+   top:70%;
+  left: 60%;
+}
+#goBackImg{
+  width:20px;
+  height:20px;
+  object-fit: cover;
+
+}
+#loginButton_home{
+  visibility: hidden;
+}
+#signUpButton_home{
+  visibility: hidden;
+}
+#logOutButton_home{
+  visibility: hidden;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+#text_display{
+  position: fixed;
+  text-align: right;
+  right: 0px;
+  top:10em;
+  color: white;
+  text-align:left;
+  width: 100px;
+}
+
+#homepage_title{
+  /*font-family: 'Chakra Petch', sans-serif;*/
+  font-family: 'Prata', serif;
+  position:relative;
+  color: #cacdd0;
+  transform: rotate(-25deg);
+  position:relative;
+  margin-right: auto;
+  font-size: 130px;
+  top:2em;
+  text-align: left;
+
+
+}
+.speech_bubble{
+  position: absolute;
+  font-size: 15px;
+  justify-content: center;
+  color: white;
+  right: 58%;
+  top:20%;
+  padding: 10px;
+  width: 8%;
+  border-radius: 50px;
+  background-color: #2c2444;
+  animation: moveTitle 3.5s linear infinite;
+
+}
+
+
+#review-button{
+  bottom: 100px;
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  font-size: 25px;
+  justify-content: center;
+  right: 55%;
+  padding: 10px;
+  border-color: white;
+  border-radius: 100px;
+}
+
+#see-reviews-button{
+  bottom: 100px;
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  font-size: 25px;
+  justify-content: center;
+  left: 55%;
+  padding: 10px;
+  border-color: white;
+  border-radius: 100px;
+}
+
+
+@keyframes moveTitle {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+/*Container for both search bar and image on top of it*/
+.search{
+  margin-top: -50px;
 }
 #icon{
     display:block; 
     margin-left: auto;
     margin-right: auto;
-    width:15em;
+    justify-content: center;
+    width:35em;
+    height:30em;
+
 }
 
-.search-bar{
-    display: flex;
-    justify-content: center;
-}
+
+/*Images that appear at the bottom left*/
 
 .emotion{
     display: flex;
     justify-content: center;
     position: absolute;
-    bottom: 0px;
+    right:2%;
+    bottom: 0%;
 }
-.emotion img{
-    display: inline-block;
-    width:10em;
+
+.emotion img {
+  opacity: 0;
+  background-color: white;
+  border-radius: 50px;
+  animation: image-appear 3s ease forwards;
+  display: inline-block;
+  height:8em;
+  width:8em;
 }
+.emotion img:hover{
+  transform: scale(1.1);
+}
+
+/*Animation for images*/
+@keyframes image-appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+
+.emotion img:nth-child(1) {
+  animation-delay: 0.5s; /* Add a delay of 0.5 seconds for the first image */
+}
+
+.emotion img:nth-child(2) {
+  animation-delay: 1s; /* Add a delay of 1 second for the second image */
+}
+
+.emotion img:nth-child(3) {
+  animation-delay: 1.5s; /* Add a delay of 1.5 seconds for the third image */
+}
+
+/*Search bar properties*/
+.search-bar{
+    display: flex;
+    justify-content: center;
+    height: 3em;
+    width: 100%;
+}
+
+/*Go button*/
+#go-button {
+  font-size: 16px;
+  border-radius: 50px;
+}
+
+/*Go button*/
+.button {
+
+  background-color: white;
+  font-size: 25px;
+  justify-content: center;
+  padding: 10px;
+  border-color: white;
+  border-radius: 100px;
+}
+
+/*Seach bar list*/
+.search-input-container {
+  position: relative;
+}
+.search-input{
+  height: 100%;
+  border-radius: 50px;
+
+}
+
+.filtered-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+  border-top: none;
+  display: none;
+}
+
+.filtered-options li {
+  padding: 4px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  border: 1px solid #ccc; 
+  background-color: #fff;
+  border-radius: 50px; 
+}
+
+/*Change bg color of list item*/
+.filtered-options li:hover {
+  background-color: #f2f2f2;
+}
+
+/*selects the search-input when it is not empty*/
+.search-input:not(:placeholder-shown) + .filtered-options {
+  display: block;
+}
+
+
+

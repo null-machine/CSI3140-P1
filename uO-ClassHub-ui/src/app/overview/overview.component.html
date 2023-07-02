@@ -1,0 +1,101 @@
+<div class="header">
+  <div>
+  <button type="button" id = "signUpButton_overview" (click)="signUp()">Sign up</button>
+  <button type="button" id = "loginButton_overview" (click)="login()">Login</button>
+  <button type="button" id = "logOutButton_overview" (click)="logOut()">Log out</button>
+  </div>
+      <h1>SENTIMENT ANALYSIS FOR {{courseCodeShortened}}</h1>
+</div>
+
+<div class="emotion">
+      <img  id = "image" src="../assets/positive.png" alt="icon">
+      <p><strong>Course Description:</strong></p>
+      <p id = "course_description">{{course_description}}</p>
+    </div>      
+<body>
+
+  
+  
+  <div>
+
+
+ <div class = "robot">
+      <img id="robot" src="../assets/robot.gif" alt="icon">
+        <div class ="speech_bubble_overview">
+          <p id = "speechTextOverview">{{speechBubbleText}}</p>
+        </div>
+    </div>  
+      <div class="test">
+
+
+  </div>
+
+  <!--  <h2>Stars</h2> 
+    <ul class="chart">
+      <li>1 star: {{stars[0]}}</li>
+      <li>2 stars: {{stars[1]}}</li>
+      <li>3 stars: {{stars[2]}}</li>
+      <li>4 stars: {{stars[3]}}</li>
+      <li>5 stars: {{stars[4]}}</li>
+
+    </ul> -->
+
+
+  <div class="bar-container">
+    <p>Course name: {{courseCodeWithoutUnits}}</p>
+    <p class="analysisResult">test</p>
+
+  <div class ="bar-title">
+    <p class ="bar-title-text">1 stars {{star_percentages[0]}}%</p>
+    <div class="bar" style="
+        --bar-width: {{stars[0]}}%;  
+        --bar-color: {{barColor}}; 
+    "></div>  
+  </div>
+
+  <div class ="bar-title">
+    <p class ="bar-title-text">2 stars {{star_percentages[1]}}%</p>
+    <div class="bar" style="
+        --bar-width: {{stars[1]}}%;  
+        --bar-color: {{barColor}}; 
+    "></div>  
+  </div>
+  <div class ="bar-title">
+    <p class ="bar-title-text">3 stars {{star_percentages[2]}}%</p>
+    <div class="bar" style="
+        --bar-width: {{stars[2]}}%;  
+        --bar-color: {{barColor}}; 
+    "></div>  
+  </div>
+  <div class ="bar-title">
+    <p class ="bar-title-text">4 stars {{star_percentages[3]}}%</p>
+    <div class="bar" style="
+        --bar-width: {{stars[3]}}%;  
+        --bar-color: {{barColor}}; 
+    "></div>  
+  </div>
+  <div class ="bar-title">
+    <p class ="bar-title-text">5 stars {{star_percentages[4]}}%</p>
+    <div class="bar" style="
+        --bar-width: {{stars[4]}}%;  
+        --bar-color: {{barColor}}; 
+    "></div>  
+  </div>
+  </div>
+
+
+    <h2>Reviews</h2>
+    <div class="reviews">
+      <ul id="container"></ul>
+    </div>
+
+
+    <button type="button" class = "box" id="go-back-to-home" (click)="goBackToHome()">Go back to home</button>
+    <button type="button"class = "box" id="review" (click)="makeReview()">Make a review for {{courseCodeShortened}}</button>
+  </div>
+
+
+</body>
+<div class="footer">
+     
+</div>
