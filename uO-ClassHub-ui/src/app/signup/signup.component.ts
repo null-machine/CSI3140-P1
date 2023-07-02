@@ -26,13 +26,38 @@ export class SignupComponent {
 		console.log(userName);
 
 		if(userName === '' || userEmail ==='' || userPassword ===''){
-			alert("Please fill all values");
+			this.showAlert("Please fill all values");
 			return;
 		}
 		if(!this.validEmail(userEmail)){
-			alert("Enter valid email");
+			this.showAlert("Enter valid email");
 			return;
 		}
+
+		this.http.get<any>("http://localhost:3000/signupUsers")
+		.subscribe(res =>{
+			const user = res.find((a:any) =>{
+				return a.email === userEmail;
+			});
+			if(user){
+				this.showAlert("A user with this email already exists");
+				//alert("A user with this email already exists");
+				return;
+			}else{
+				this.signupUser();
+			}
+		},err=>{
+			alert("Something went wrong");
+		})
+
+	}
+
+	validEmail(email:string):boolean{
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email) 
+
+	}
+	signupUser(){
 		this.http.post<any>("http://localhost:3000/signupUsers", this.signupForm.value)
 		.subscribe(res=>{
 			this.signupForm.reset();
@@ -42,11 +67,21 @@ export class SignupComponent {
 			alert("Error occured")
 		})
 	}
+	showAlert(text: string) {
+	  var alertBox = document.getElementById("alertBox")!;
+	  alertBox!.innerHTML = text;
+	  alertBox.style.display = "block";
 
-	validEmail(email:string):boolean{
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		return emailRegex.test(email) 
+	setTimeout(function() {
+	    alertBox.style.opacity = "1";
+	  }, 10); // Delay the opacity transition for a smoother effect
 
+	  setTimeout(function() {
+	    alertBox.style.opacity = "0";
+	    setTimeout(function() {
+	      alertBox.style.display = "none";
+	    }, 300);
+	  }, 2000);
 	}
 
 }

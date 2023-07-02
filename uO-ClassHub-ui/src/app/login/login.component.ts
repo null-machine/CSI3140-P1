@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 })
 export class LoginComponent {
 	public loginForm! : FormGroup;
+	emailFound = false;
 	constructor(private formBuilder: FormBuilder, private http:HttpClient, private router:Router,private location: Location){
 
 	}
@@ -26,7 +27,8 @@ export class LoginComponent {
 		.subscribe(res =>{
 			const user = res.find((a:any) =>{
 				console.log(this.loginForm.value.password);
-				return a.email === this.loginForm.value.email && a.password === this.loginForm.value.password;
+				this.emailFound = (a.email === this.loginForm.value.email );
+				return this.emailFound && a.password === this.loginForm.value.password;
 			});
 			if(user){
 				this.loginForm.reset();
@@ -35,13 +37,32 @@ export class LoginComponent {
 				//console.log(user.fullname)
 				this.location.back();
 				window.scrollTo(0, 0);
-			}else{
-				alert("user not found");
+			}else if(this.emailFound){
+				this.showAlert("Wrong password");
+			}
+			else{
+				this.showAlert("User not found");
 			}
 		},err=>{
 			alert("Something went wrong");
 		})
 
+	}
+	showAlert(text: string) {
+	  var alertBox = document.getElementById("alertBox2")!;
+	  alertBox!.innerHTML = text;
+	  alertBox.style.display = "block";
+
+	setTimeout(function() {
+	    alertBox.style.opacity = "1";
+	  }, 10); // Delay the opacity transition for a smoother effect
+
+	  setTimeout(function() {
+	    alertBox.style.opacity = "0";
+	    setTimeout(function() {
+	      alertBox.style.display = "none";
+	    }, 300);
+	  }, 2000);
 	}
 
 }
