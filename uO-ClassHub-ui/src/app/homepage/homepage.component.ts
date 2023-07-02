@@ -62,7 +62,9 @@ export class HomepageComponent {
   selectedOption: string = '';
 
 
+
   getAllCourseData(){
+
     //Connects to the database from the /home path component
     //Get method in the /home path selects all elements from the database
     //Data holds all elements from the database
@@ -72,12 +74,14 @@ export class HomepageComponent {
       this.courseData = data as JSON;
 
       //Takes the first element of all arrays = the course codes
-      const allCodes = Object.values(this.courseData).map((obj: any) => Object.values(obj)[0]);
+      const allCodes = Object.values(this.courseData).map((obj: any) => Object.values(obj)[1]);
      
      //Puts all the courses into an array
      this.coursesArray = Object.values(this.courseData);
      //Puts all the UNIQUE course codes into an array
      this.courseCodes = Array.from(new Set(allCodes));
+
+  
     })
   }
 
@@ -123,7 +127,8 @@ export class HomepageComponent {
   verifySelectedOption(){
     const searchInput = document.querySelector('.search-input') as HTMLInputElement;
     const input = searchInput.value;
-    return this.courseCodes.indexOf(input.toUpperCase()) > -1;
+    console.log(input.toUpperCase())
+    return this.courseCodes.indexOf(input) > -1;
   }
 
   //Goes back to the search bar
@@ -139,7 +144,7 @@ export class HomepageComponent {
   //Makes two new buttons appear (reviewButton, seeReviewsButton) while making the search bar disappear
   clickButton(){
     //Filters the coursesArray according to selected option
-    const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[0] === this.selectedOption);
+    const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[1] === this.selectedOption);
     this.courseCode = this.selectedOption;
 
     const verificationPassed = this.verifySelectedOption();

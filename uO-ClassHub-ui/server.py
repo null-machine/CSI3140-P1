@@ -15,6 +15,7 @@ api = Api(app)
 
 CORS(app)
 
+
 @app.route('/')
 def endpoint():
 	if request.method == 'GET':
@@ -22,7 +23,7 @@ def endpoint():
 		cursor = connection.cursor()
 		cursor.execute(request.args['query'])
 		rows = cursor.fetchall()
-		# print('hello there')
+		print('hello there')
 		# print(request.args['query'])
 		# print(rows)
 		return rows
@@ -82,18 +83,21 @@ def create_db():
 	''')
 	connection.commit()
 
+#<<<<<<< Updated upstream
 #class Courses(Resource):
  #       def get(self):
   #              return {'courses':[{'id':1, 'name':'CSI3185'},{'id':2, 'name':'CSI3140'}]}
 
 
 
+#>>>>>>> Stashed changes
+
 @app.route('/home')
 def get():
 
 	#if request.method == 'GET':
 
-	connection = sqlite3.connect('reviews.db')
+	connection = sqlite3.connect('courses_database.db')
 	cursor = connection.cursor()
 	connection.commit()
 	data = cursor.execute("SELECT * FROM courses").fetchall()
@@ -175,4 +179,4 @@ def sentimentAnalysis():
 #api.add_resource(Courses,'/courses') #Route 1
 
 if __name__ =='__main__':
-        app.run(port = 5002)
+    app.run(port = 5002)
