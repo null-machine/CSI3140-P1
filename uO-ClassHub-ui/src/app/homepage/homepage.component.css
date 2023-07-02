@@ -27,13 +27,13 @@ body{
   object-fit: cover;
 
 }
-#loginButton{
+#loginButton_home{
   visibility: hidden;
 }
-#signUpButton{
+#signUpButton_home{
   visibility: hidden;
 }
-#logOutButton{
+#logOutButton_home{
   visibility: hidden;
 }
 

@@ -40,9 +40,9 @@ export class OverviewComponent {
 		this.courseCode = this.activatedRoute.snapshot.paramMap.get('courseId')!;
 		this.courseCodeWithoutUnits = this.courseCode.replace(/\([^()]*\)/g, "");
 		this.courseCodeShortened = this.courseCode.slice(0,8);
-		this.loginButton = document.querySelector('#loginButton') as HTMLInputElement;
-	    this.signUpButton = document.querySelector('#signUpButton') as HTMLInputElement;
-	    this.logOutButton = document.querySelector('#logOutButton') as HTMLInputElement;
+		this.loginButton = document.querySelector('#loginButton_overview') as HTMLInputElement;
+	    this.signUpButton = document.querySelector('#signUpButton_overview') as HTMLInputElement;
+	    this.logOutButton = document.querySelector('#logOutButton_overview') as HTMLInputElement;
 	    this.speachBubble = document.querySelector('#speechTextOverview') as HTMLElement;
 	    this.image = document.querySelector('#image') as HTMLImageElement;
 	    this.userName = localStorage.getItem('userName');
@@ -173,7 +173,6 @@ export class OverviewComponent {
   logOut(){
     localStorage.removeItem('userName'); // Delete the userName from localStorage
     this.userName = null;
-    this.router.navigate(['/'], { skipLocationChange: true });
     this.loginButton.style.visibility="visible";
     this.signUpButton.style.visibility="visible";
     this.logOutButton.style.visibility="hidden";

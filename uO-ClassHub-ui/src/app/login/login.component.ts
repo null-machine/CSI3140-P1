@@ -33,9 +33,14 @@ export class LoginComponent {
 			if(user){
 				this.loginForm.reset();
 				localStorage.setItem('userName', user.fullname);
-				//console.log(user)
+				console.log(document.referrer);
 				//console.log(user.fullname)
-				this.location.back();
+				if(document.referrer == 'http://localhost:4200/signup' || document.referrer == 'http://localhost:4200/login'){
+					this.router.navigate(['/'], { skipLocationChange: true });
+				}else{
+					this.location.back();
+				}
+				
 				window.scrollTo(0, 0);
 			}else if(this.emailFound){
 				this.showAlert("Wrong password");

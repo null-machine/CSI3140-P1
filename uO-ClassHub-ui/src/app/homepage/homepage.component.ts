@@ -23,9 +23,9 @@ export class HomepageComponent {
     this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
     this.searchBar = document.querySelector('.search-bar') as HTMLElement;
     this.gobackButton = document.querySelector('.goBack') as HTMLElement;
-    this.loginButton = document.querySelector('#loginButton') as HTMLInputElement;
-    this.signUpButton = document.querySelector('#signUpButton') as HTMLInputElement;
-    this.logOutButton = document.querySelector('#logOutButton') as HTMLInputElement;
+    this.loginButton = document.querySelector('#loginButton_home') as HTMLInputElement;
+    this.signUpButton = document.querySelector('#signUpButton_home') as HTMLInputElement;
+    this.logOutButton = document.querySelector('#logOutButton_home') as HTMLInputElement;
 
 
     if(this.userName === null){
