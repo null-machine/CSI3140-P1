@@ -1,7 +1,8 @@
 .reviews{
   height: 200px; 
   overflow: auto; 
-  margin-bottom: 100px;
+  margin-bottom: 10em;
+
    width: 50%;
   color:white;
 }
@@ -87,8 +88,9 @@ body {
 }
 
 .bar-container {
-	margin-top: 8%;
+	margin-top: 2%;
     width: 60%;
+    margin-bottom: 5em;
 }
 .bar-title{
 	position: relative;
@@ -122,4 +124,22 @@ body {
     to {
         width: var(--bar-width);    
     }
+}
+/*Images that appear at the bottom left*/
+
+.emotion{
+	margin-top:10em;
+
+}
+
+.emotion img {
+  background-color: white;
+  border-radius: 50px;
+  animation: image-appear 3s ease forwards;
+  height:14em;
+  margin-left:2em;
+  width:14em;
+}
+.emotion img:hover{
+  transform: scale(1.1);
 }

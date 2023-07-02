@@ -5,7 +5,11 @@
   <button type="button" id = "logOutButton" (click)="logOut()">Log out</button>
   </div>
       <h1>SENTIMENT ANALYSIS FOR {{courseCodeShortened}}</h1>
-    </div>
+</div>
+
+<div class="emotion">
+      <img  id = "image" src="../assets/positive.png" alt="icon">
+    </div>      
 <body>
 
   
@@ -19,6 +23,10 @@
           <p id = "speechText2"></p>
         </div>
     </div>  
+      <div class="test">
+
+
+  </div>
 
   <!--  <h2>Stars</h2> 
     <ul class="chart">
@@ -30,6 +38,7 @@
 
     </ul> -->
 
+
   <div class="bar-container">
     <p>Course name: {{courseCodeWithoutUnits}}</p>
     <p class="analysisResult">test</p>
@@ -38,7 +47,7 @@
     <p class ="bar-title-text">1 stars {{star_percentages[0]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[0]}}%;  
-        --bar-color: #b3b0a9; 
+        --bar-color: {{barColor}}; 
     "></div>  
   </div>
 
@@ -46,28 +55,28 @@
     <p class ="bar-title-text">2 stars {{star_percentages[1]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[1]}}%;  
-        --bar-color: #b3b0a9; 
+        --bar-color: {{barColor}}; 
     "></div>  
   </div>
   <div class ="bar-title">
     <p class ="bar-title-text">3 stars {{star_percentages[2]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[2]}}%;  
-        --bar-color: #b3b0a9; 
+        --bar-color: {{barColor}}; 
     "></div>  
   </div>
   <div class ="bar-title">
     <p class ="bar-title-text">4 stars {{star_percentages[3]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[3]}}%;  
-        --bar-color: #b3b0a9; 
+        --bar-color: {{barColor}}; 
     "></div>  
   </div>
   <div class ="bar-title">
     <p class ="bar-title-text">5 stars {{star_percentages[4]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[4]}}%;  
-        --bar-color: #b3b0a9; 
+        --bar-color: {{barColor}}; 
     "></div>  
   </div>
   </div>

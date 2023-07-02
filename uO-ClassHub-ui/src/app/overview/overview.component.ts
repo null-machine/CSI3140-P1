@@ -18,10 +18,16 @@ export class OverviewComponent {
 	star_percentages!: number[];
 	userName: string | null = null;
 	speachBubble!: HTMLElement;
+	image!: HTMLImageElement;
+	barColor!: string;
 
   loginButton!: HTMLElement;
   signUpButton!: HTMLElement;
   logOutButton!: HTMLElement;
+
+  	posColor = "green";
+  	negColor = "red";
+  	neuColor = "blue";
 
 	constructor(private router:Router, private activatedRoute: ActivatedRoute,private httpClient:HttpClient){
 	}
@@ -36,6 +42,7 @@ export class OverviewComponent {
 	    this.signUpButton = document.querySelector('#signUpButton') as HTMLInputElement;
 	    this.logOutButton = document.querySelector('#logOutButton') as HTMLInputElement;
 	    this.speachBubble = document.querySelector('#speechText2') as HTMLElement;
+	    this.image = document.querySelector('#image') as HTMLImageElement;
 	    this.userName = localStorage.getItem('userName');
 	    if(this.userName === null){
 	      this.loginButton.style.visibility="visible";
@@ -76,7 +83,24 @@ export class OverviewComponent {
 		  const analysis = `Compound: ${data.analysis.compound}, Negative: ${data.analysis.neg}, Neutral: ${data.analysis.neu}, Positive: ${data.analysis.pos}`;
 		  analysisResult.innerHTML = analysis;
 		  	      this.reviews = data.reviews;
-	      
+	      const emotion = Math.max(data.analysis.neg,data.analysis.neu,data.analysis.pos);
+	      console.log(emotion);
+		  if(emotion === data.analysis.neu){
+	      	this.image.src= "../assets/negative.png";
+	      	this.barColor = "blue";
+	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.neuColor;
+	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.neuColor;
+	      }else if(emotion === data.analysis.pos){
+	      	this.image.src= "../assets/positive.png";
+	      	this.barColor = "green";
+	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.posColor;
+	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.posColor;
+	      }else{
+	      	this.image.src= "../assets/neutral.png";
+	      	this.barColor = "red";
+	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.negColor;
+	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.negColor;
+	      }
 	      
 		data.reviews.forEach((userAndReview: string) => {
 				const listItem = document.createElement('ul');
