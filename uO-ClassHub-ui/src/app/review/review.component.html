@@ -6,7 +6,7 @@
 		<div class = "robot">
 			<img id="robot" src="../assets/robot.gif" alt="icon">
 			  <div class ="speech_bubble">
-			    <p id = "speech">Please give us your reviews on {{courseCode}}</p>
+			    <p id = "speech">Please give us your reviews on {{courseCodeShortened}}</p>
 			  </div>
 		</div>	
 		
@@ -38,13 +38,10 @@
 	  	</div>
 
 		<button class = "box" type="button" id="go-back-to-home" (click)="goBackToHome()">Go back to home</button>
-		<button class = "box" type="button" id="seeReviewsButton" (click)="seeReviews()">See reviews for {{courseCode}}</button>
+		<button class = "box" type="button" id="seeReviewsButton" (click)="seeReviews()">See reviews for {{courseCodeShortened}}</button>
 		
 	</div>
 
-
-
-	<div class="footer">
-	</div>
-
 </body>
+<div class="footer">
+	</div>

@@ -18,7 +18,7 @@ export class HomepageComponent {
     this.getAllCourseData();
     this.userName = localStorage.getItem('userName');
 
-    this.speachBubble = document.querySelector('#speech') as HTMLElement;
+    this.speachBubble = document.querySelector('#speechText') as HTMLElement;
     this.reviewButton = document.querySelector('#review-button') as HTMLElement;
     this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
     this.searchBar = document.querySelector('.search-bar') as HTMLElement;
@@ -151,6 +151,10 @@ filterOptions(target: EventTarget | null) {
     //Filters the coursesArray according to selected option
     const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[1] === this.selectedOption);
     this.courseCode = this.selectedOption;
+    if(this.courseCode === ""){
+      this.changeSpeech("Please enter course code");
+      return;
+    }
 
     const verificationPassed = this.verifySelectedOption();
     if(verificationPassed){
@@ -167,26 +171,31 @@ filterOptions(target: EventTarget | null) {
   //Routes to overview page
   seeReviews(){
     this.router.navigate(['/overview', this.courseCode]);
+    window.scrollTo(0, 0);
   }
 
   //Routes to the review page
   makeReview(){
     if(this.userName === null){
+      console.log("Please login to make a review");
       this.changeSpeech("Please login to make a review");
       return;
     }
     this.router.navigate(['/review', this.courseCode]);
+    window.scrollTo(0, 0);
   }
 
 
   //Routes to login page
   login(){
     this.router.navigate(['/login']);
+    window.scrollTo(0, 0);
   }
 
   //Routes to signup page
   signUp(){
     this.router.navigate(['/signup']);
+    window.scrollTo(0, 0);
   }
 
   //Routes to logout page

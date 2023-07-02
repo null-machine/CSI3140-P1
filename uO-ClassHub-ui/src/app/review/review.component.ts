@@ -11,6 +11,7 @@ export class ReviewComponent implements OnInit {
 	courseCode!: string ;
 	courseData! : Object;
 	userName!: string;
+	courseCodeShortened!: string;
 
 	textField!: HTMLInputElement;
 	stars!: HTMLInputElement;
@@ -28,6 +29,7 @@ export class ReviewComponent implements OnInit {
 		}
 		this.speechBubble = document.querySelector('.speech_bubble')!;
 		this.courseCode = this.activatedRoute.snapshot.paramMap.get('courseId')!;
+		this.courseCodeShortened = this.courseCode.slice(0,8);
 		this.textField = document.querySelector('.reviewText') as HTMLInputElement;
 		this.stars = document.querySelector('#stars') as HTMLInputElement;
 		this.anonymousButton = document.querySelector('#anonymousButton') as HTMLInputElement;
@@ -35,6 +37,7 @@ export class ReviewComponent implements OnInit {
 
 	goBackToHome(){
 		this.router.navigate(['/']);
+		window.scrollTo(0, 0);
 	}
 
 	//Connects to http://127.0.0.1:5002/review which has the method to insert the review into the database
@@ -76,6 +79,7 @@ export class ReviewComponent implements OnInit {
 	 
   	seeReviews(){
     	this.router.navigate(['/overview', this.courseCode]);
+    	window.scrollTo(0, 0);
  	 }
 
  	setAnonymous(){
@@ -84,8 +88,7 @@ export class ReviewComponent implements OnInit {
  			//Change button's color
  			this.anonymousButton.classList.add('anonymousMode');
  			this.anonymousButton.innerHTML = "Click back to review as " + this.userName; 
- 			this.userName = 'anonymous';
- 			document.body.style.backgroundColor = "black";
+ 			this.userName = 'Anonymous';
  			this.changeSpeech("Anonymous mode activated");
  			(document.querySelector('.header')! as HTMLInputElement).style.backgroundColor = "black";
  			(document.querySelector('.footer')! as HTMLInputElement).style.backgroundColor = "black";
@@ -94,7 +97,6 @@ export class ReviewComponent implements OnInit {
  			this.userName = localStorage.getItem('userName')!;
  			this.anonymousButton.innerHTML = "Click to review anonymously"; 
  			this.changeSpeech("Reviewing as " + this.userName);
- 			document.body.style.backgroundColor = "white";
  			(document.querySelector('.header')! as HTMLInputElement).style.backgroundColor = "#cacdd0 ";
  			(document.querySelector('.footer')! as HTMLInputElement).style.backgroundColor = "#cacdd0 ";
  		}

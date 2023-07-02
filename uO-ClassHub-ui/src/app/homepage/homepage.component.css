@@ -131,14 +131,15 @@ body{
 
 }
 
+
 /*Images that appear at the bottom left*/
 
 .emotion{
     display: flex;
     justify-content: center;
     position: absolute;
-    right:0px;
-    bottom: 0px;
+    right:2%;
+    bottom: 0%;
 }
 
 .emotion img {
@@ -149,6 +150,9 @@ body{
   display: inline-block;
   height:8em;
   width:8em;
+}
+.emotion img:hover{
+  transform: scale(1.1);
 }
 
 /*Animation for images*/

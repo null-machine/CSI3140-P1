@@ -37,6 +37,7 @@ export class SignupComponent {
 		.subscribe(res=>{
 			this.signupForm.reset();
 			this.router.navigate(['login']);
+			window.scrollTo(0, 0);
 		},err=>{
 			alert("Error occured")
 		})

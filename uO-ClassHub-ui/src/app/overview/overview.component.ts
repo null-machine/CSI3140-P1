@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, Routes} from "@angular/router";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-overview',
@@ -9,33 +10,73 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 })
 export class OverviewComponent {
 	courseCode!: string ;
+	courseCodeWithoutUnits! :string;
+	courseCodeShortened!: string;
 	courseData! : Object;
 	stars!: number[];
 	reviews!: string;
+	star_percentages!: number[];
+	userName: string | null = null;
+	speachBubble!: HTMLElement;
+
+  loginButton!: HTMLElement;
+  signUpButton!: HTMLElement;
+  logOutButton!: HTMLElement;
 
 	constructor(private router:Router, private activatedRoute: ActivatedRoute,private httpClient:HttpClient){
 	}
 
 	ngOnInit(): void{
 		this.stars = [0,0,0,0,0]
+		this.star_percentages = [0,0,0,0,0]
 		this.courseCode = this.activatedRoute.snapshot.paramMap.get('courseId')!;
+		this.courseCodeWithoutUnits = this.courseCode.replace(/\([^()]*\)/g, "");
+		this.courseCodeShortened = this.courseCode.slice(0,8);
+		this.loginButton = document.querySelector('#loginButton') as HTMLInputElement;
+	    this.signUpButton = document.querySelector('#signUpButton') as HTMLInputElement;
+	    this.logOutButton = document.querySelector('#logOutButton') as HTMLInputElement;
+	    this.speachBubble = document.querySelector('#speechText2') as HTMLElement;
+	    this.userName = localStorage.getItem('userName');
+	    if(this.userName === null){
+	      this.loginButton.style.visibility="visible";
+	      this.signUpButton.style.visibility="visible";
+	      this.logOutButton.style.visibility="hidden";
+	    }else{
+	      this.loginButton.style.visibility="hidden";
+	      this.signUpButton.style.visibility="hidden";
+	      this.logOutButton.style.visibility="visible";
+	    }
 		this.sentimentAnalysis();
 	}
 
 	sentimentAnalysis(): any {
 	    const apiUrl = 'http://127.0.0.1:5002/overview';
 	    const params = new HttpParams().set('paramName', this.courseCode);
-	    const analysisResult = document.querySelector('.analysisResult') as HTMLInputElement;
+	    const analysisResult = document.querySelector('.analysisResult') as HTMLInputElement;   
 
 	    //Connects to http://127.0.0.1:5002/overview which has the sentiment analysis method
 	    //Gets the sentiment analysis and puts it into the analysisResult html field
 	    this.httpClient.get(apiUrl, { params }).subscribe((data: any) => {
 	      console.log(data.stars);
 	      this.stars = data.stars;
+	      const total_stars = this.stars[0] +this.stars[1]+this.stars[2]+this.stars[3]+this.stars[4]; 
+		  this.star_percentages[0] = Math.floor(this.stars[0]/total_stars *100);
+		  this.star_percentages[1] = Math.floor(this.stars[1]/total_stars *100);
+		  this.star_percentages[2] = Math.floor(this.stars[2]/total_stars *100);
+		  this.star_percentages[3] = Math.floor(this.stars[3]/total_stars *100);
+		  this.star_percentages[4] = Math.floor(this.stars[4]/total_stars *100);
+
+
 	      const reviewsText = document.querySelector('#reviews') as HTMLInputElement;
 	      const container = document.getElementById('container')!;
 	      //reviewsText.innerHTML = reviews.join(', ');
-	      this.reviews = data.reviews;
+
+
+	      //Analysis results
+		  const analysis = `Compound: ${data.analysis.compound}, Negative: ${data.analysis.neg}, Neutral: ${data.analysis.neu}, Positive: ${data.analysis.pos}`;
+		  analysisResult.innerHTML = analysis;
+		  	      this.reviews = data.reviews;
+	      
 	      
 		data.reviews.forEach((userAndReview: string) => {
 				const listItem = document.createElement('ul');
@@ -48,15 +89,22 @@ export class OverviewComponent {
 			  	const listItem3 = document.createElement('li');
 			  	listItem3.textContent = "Stars given= " + userAndReview[2];
 			  	listItem.appendChild(listItem3);
-			  	listItem.style.backgroundColor = "#808080";
+			  	listItem.style.backgroundColor = "#2b2445";
+			  	listItem.style.boxShadow = '-4px 4px rgba(0, 0, 0, 0.4)';
 			  	listItem.style.margin = "10px";
 			 	container.appendChild(listItem);
 			 
 			});
-
-	      //Analysis results
-		  const analysis = `Compound: ${data.analysis.compound}, Negative: ${data.analysis.neg}, Neutral: ${data.analysis.neu}, Positive: ${data.analysis.pos}`;
-		  analysisResult.innerHTML = analysis; 
+		console.log(this.reviews);
+			if(this.reviews.length<1){
+				this.changeSpeech("There's no reviews on this course yet");
+				return data;
+			} 
+			if(this.reviews.length == 1){
+				this.changeSpeech(this.reviews.length+" student reviewed this course");
+				return data;
+			}
+			this.changeSpeech(this.reviews.length+" students reviewed this course");
 
 		  return data;
 	    }, (error: any) => {
@@ -75,10 +123,40 @@ export class OverviewComponent {
 		const userName = localStorage.getItem('userName');
 		if(userName == null){
 			alert("please login to make a review");
+			this.changeSpeech("Please log in to make a review");
 			return;
 		}
 	    this.router.navigate(['/review', this.courseCode]);
+	    window.scrollTo(0, 0);
 	}
+  //Routes to login page
+  login(){
+    this.router.navigate(['/login']);
+    window.scrollTo(0, 0);
+  }
+
+  //Routes to signup page
+  signUp(){
+    this.router.navigate(['/signup']);
+    window.scrollTo(0, 0);
+  }
+
+  //Routes to logout page
+  logOut(){
+    localStorage.removeItem('userName'); // Delete the userName from localStorage
+    this.userName = null;
+    this.router.navigate(['/'], { skipLocationChange: true });
+    this.loginButton.style.visibility="visible";
+    this.signUpButton.style.visibility="visible";
+    this.logOutButton.style.visibility="hidden";
+  }
+
+  changeSpeech(text:string){
+    this.speachBubble.innerHTML = text;
+  }
+
 
 
 }
+
+
