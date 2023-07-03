@@ -27,7 +27,7 @@ export class OverviewComponent {
   signUpButton!: HTMLElement;
   logOutButton!: HTMLElement;
 
-  	posColor = "green";
+  	posColor = "#008F71";
   	negColor = "red";
   	neuColor = "blue";
 
@@ -60,6 +60,7 @@ export class OverviewComponent {
 
 	sentimentAnalysis(): any {
 	    const apiUrl = 'http://127.0.0.1:5002/overview';
+	    console.log(this.courseCode);
 	    const params = new HttpParams().set('paramName', this.courseCode);
 	    const analysisResult = document.querySelector('.analysisResult') as HTMLInputElement;   
 
@@ -143,20 +144,34 @@ export class OverviewComponent {
 
 	//Route back to home page
 	goBackToHome(){
+		localStorage.removeItem('selectedClass');
 		this.router.navigate(['/']);
+		window.scrollTo(0, 0);
 	}
 
 	//Route to review page
 	makeReview(){
 		const userName = localStorage.getItem('userName');
 		if(userName == null){
-			alert("please login to make a review");
+			this.moveRobot();
+
+			//alert("please login to make a review");
 			this.changeSpeech("Please log in to make a review");
 			return;
 		}
 	    this.router.navigate(['/review', this.courseCode]);
 	    window.scrollTo(0, 0);
 	}
+	moveRobot() {
+  const robotElement = document.querySelector('.robot')!;
+  robotElement.classList.add('move');
+
+  // Remove the 'move' class after the transition completes
+  setTimeout(() => {
+    robotElement.classList.remove('move');
+  }, 2000); // Adjust the duration (in milliseconds) to control the speed of the movement
+}
+
   //Routes to login page
   login(){
     this.router.navigate(['/login']);

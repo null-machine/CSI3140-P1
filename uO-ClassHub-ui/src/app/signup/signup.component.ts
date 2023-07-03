@@ -18,6 +18,7 @@ export class SignupComponent {
 			email:[''],
 			password:['']
 		})
+		localStorage.setItem('signUp', 'signedUp');
 	}
 	signUp(){
 		const userName= this.signupForm.get('fullname')?.value;

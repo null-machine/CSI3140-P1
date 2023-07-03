@@ -11,6 +11,7 @@
   	top: 50%;
   	right: 0%;
   	transform: translate(0, -50%);
+    transition: transform 2s ease;
 }
 #robot{
 	top: 30%;
@@ -32,7 +33,9 @@
   	align-items: center; 
 
 }
-
+.move {
+  transform: translate(-50%,0);
+}
 @keyframes moveTitle {
   0% {
     transform: translateY(0);

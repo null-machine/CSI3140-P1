@@ -26,6 +26,10 @@ export class HomepageComponent {
     this.loginButton = document.querySelector('#loginButton_home') as HTMLInputElement;
     this.signUpButton = document.querySelector('#signUpButton_home') as HTMLInputElement;
     this.logOutButton = document.querySelector('#logOutButton_home') as HTMLInputElement;
+    console.log(document.referrer);
+            const lastEntryIndex = window.history.length - 1;
+const lastEntry = window.history.state[lastEntryIndex];
+          console.log("last entry " + lastEntry + " " + lastEntryIndex);
 
 
     if(this.userName === null){
@@ -37,6 +41,17 @@ export class HomepageComponent {
       console.log(this.userName);
       this.logOutButton.style.visibility="visible";
     }
+
+    if(document.referrer!= "http://localhost:4200/"){
+          const alreadySelectedClass = localStorage.getItem('selectedClass');
+
+      if(alreadySelectedClass != null){
+        this.courseCode = alreadySelectedClass;
+        this.selectedClass();
+      }
+    }
+
+
 
   }
 
@@ -143,6 +158,7 @@ filterOptions(target: EventTarget | null) {
     this.seeReviewsButton.style.visibility = "hidden";
     this.searchBar.style.visibility = "visible";
     this.gobackButton.style.visibility = "hidden";
+    localStorage.removeItem('selectedClass');
   }
 
 
@@ -158,11 +174,8 @@ filterOptions(target: EventTarget | null) {
 
     const verificationPassed = this.verifySelectedOption();
     if(verificationPassed){
-      this.changeSpeech("Please select one of the values");
-      this.searchBar.style.visibility = "hidden";
-      this.reviewButton.style.visibility = "visible";
-      this.seeReviewsButton.style.visibility = "visible";
-      this.gobackButton.style.visibility = "visible";
+      this.selectedClass();
+      localStorage.setItem('selectedClass', this.courseCode);
     }else{
       this.changeSpeech("Please enter a valid course code");
     }
@@ -210,6 +223,16 @@ filterOptions(target: EventTarget | null) {
 
   changeSpeech(text:string){
     this.speachBubble.innerHTML = text;
+  }
+
+
+  selectedClass(){
+    this.changeSpeech("Please select one of the values");
+      this.searchBar.style.visibility = "hidden";
+      this.reviewButton.style.visibility = "visible";
+      this.seeReviewsButton.style.visibility = "visible";
+      this.gobackButton.style.visibility = "visible";
+
   }
 
 }
