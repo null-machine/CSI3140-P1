@@ -7,17 +7,23 @@
       <h1>SENTIMENT ANALYSIS FOR {{courseCodeShortened}}</h1>
 </div>
 
-<div class="emotion">
+<div class="emotion" (click) = "showCourseDescription()">
       <img  id = "image" src="../assets/positive.png" alt="icon">
-      <p><strong>Course Description:</strong></p>
-      <p id = "course_description">{{course_description}}</p>
-      <p id = "faculty"><strong>Faculty: </strong>{{faculty}}</p>
-      <p id = "course_details"><strong>Course details: </strong>{{course_details}}</p>
-      <p id = "course_prerequisites"><strong>Course prerequisites: </strong>{{course_prerequisites}}</p>
-    </div>      
+      <p id ="emotion_text">Click on me to see the course information</p>
+</div>   
 <body>
 
-  
+
+  <div class="course_description">
+    <button id="close_button" (click) = "hideCourseDescription()">Close</button>
+    <p><strong>Course Description:</strong></p>
+    <p id = "course_description">{{course_description}}</p>
+    <p id = "faculty"><strong>Faculty: </strong>{{faculty}}</p>
+    <p id = "course_details">{{course_details}}</p>
+    <p id = "course_prerequisites">{{course_prerequisites}}</p>
+</div>
+
+   
   
   <div>
 

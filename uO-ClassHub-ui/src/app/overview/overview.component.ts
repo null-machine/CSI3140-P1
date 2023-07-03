@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, Routes} from "@angular/router";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import * as $ from 'jquery';
-
+import { Chart, ArcElement, CategoryScale, LinearScale, PointElement, Title, Tooltip } from 'chart.js';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -59,6 +59,9 @@ export class OverviewComponent {
 	      this.logOutButton.style.visibility="visible";
 	    }
 		this.sentimentAnalysis();
+
+
+
 	}
 
 	sentimentAnalysis(): any {
@@ -208,6 +211,15 @@ export class OverviewComponent {
 
   changeSpeech(text:string){
     this.speechBubbleText = text;
+  }
+
+  showCourseDescription(){
+  	(document.querySelector('.course_description') as HTMLInputElement).style.visibility ="visible";
+
+  }
+  hideCourseDescription(){
+  	(document.querySelector('.course_description') as HTMLInputElement).style.visibility ="hidden";
+
   }
 
 
