@@ -39,11 +39,19 @@ async def scrape_course_names(courseCode):
     soup = BeautifulSoup(data, 'html.parser')
     li_elements = soup.select('.courseblock')
    # print(len(li_elements))
+    sc_sccoursedescs = soup.find(class_='page_content')
+    faculty = ""
+    if(sc_sccoursedescs ):
+        previous_sibling = sc_sccoursedescs.find('p')
+       # print( previous_sibling.get_text() )
+        faculty = previous_sibling.get_text().strip()
 
     for element in li_elements:
-        course = ['coursename', 'coursedesc']  # Create a new list for each course
+        course = ['coursename', 'coursedesc','faculty','coursedetails','prerequisites']  # Create a new list for each course
         title_element = element.select_one('.courseblocktitle')
         course_desc = element.select_one('.courseblockdesc')
+        course_details = element.select_one('.courseblockextra')
+        course_prerequisites = element.find(class_='courseblockextra highlight noindent')
         name = title_element.get_text().strip().replace("\xa0", " ")
 
         if course_desc is None:
@@ -51,8 +59,20 @@ async def scrape_course_names(courseCode):
         else:
             description_text = course_desc.get_text().strip()
             course[1] = description_text
+        if(course_details is None):
+            course[3] = ""
+        else:
+            course_details_text = course_details.get_text().strip()
+            course[3] = course_details_text
+        if(course_prerequisites is None):
+            course[4] = "This course has no prerequisites"
+        else:
+            prerequisites_text = course_prerequisites.get_text().strip()
+            course[4] = prerequisites_text
+          #  print(prerequisites_text)
 
         course[0] = name
+        course[2] = faculty
         course_names.append(course)
 
     return course_names
@@ -66,8 +86,8 @@ async def main():
         cursor = connection.cursor()
 
         course_codes = await scrape_course_codes()
-  #      cursor.execute('''DROP TABLE courseInformation''')
-   #     cursor.execute('''CREATE TABLE courseInformation(course_name, course_code, course_desc)''')
+        cursor.execute('''DROP TABLE courseInformation''')
+        cursor.execute('''CREATE TABLE courseInformation(faculty, course_code, course_desc, course_details, prerequisites)''')
      #course_name course_code
 
 
@@ -80,7 +100,7 @@ async def main():
             for courseName in course_names:
                 i = 0
                # print(courseName)
-              #  cursor.execute(''' INSERT INTO courseInformation  VALUES (?, ?, ?)''', (course, courseName[0], courseName[1]))
+                cursor.execute(''' INSERT INTO courseInformation  VALUES (?, ?, ?, ?, ?)''', (courseName[2], courseName[0], courseName[1], courseName[3], courseName[4]))
             # Insert course names into the corresponding columns
        
         data  = cursor.execute(''' SELECT * FROM courseInformation''').fetchall()

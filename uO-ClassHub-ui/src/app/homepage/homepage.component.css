@@ -6,6 +6,7 @@ body{
 }
 /*Main container*/
 .main{
+  opacity: 0%;
   height: calc(100vh - 100px);
     background: linear-gradient(to right bottom, white 50%, #cacdd0 50%);
     min-height: 100%;
@@ -129,6 +130,10 @@ body{
     width:35em;
     height:30em;
 
+
+}
+.homepage_robot{
+  transition: transform 2s ease;
 }
 
 
@@ -181,9 +186,12 @@ body{
 /*Search bar properties*/
 .search-bar{
     display: flex;
+     transition: opacity 0.5s ease;
+    opacity: 0;
     justify-content: center;
     height: 3em;
     width: 100%;
+    animation: fade-in 4s ease forwards;
 }
 
 /*Go button*/
@@ -245,4 +253,33 @@ body{
 }
 
 
+
+.show {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+
+.move {
+  transform: translate(-12%,45%);
+}
+
+.fade-in-animation {
+  opacity: 0;
+  animation: fade-in 1s ease-in;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.main {
+  opacity: 1;
+  
+}
 

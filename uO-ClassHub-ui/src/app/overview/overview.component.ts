@@ -21,6 +21,9 @@ export class OverviewComponent {
 	image!: HTMLImageElement;
 	barColor!: string;
 	course_description!: string;
+	course_details!: string;
+	faculty!: string;
+	course_prerequisites!: string;
 	speechBubbleText = "";
 
   loginButton!: HTMLElement;
@@ -88,7 +91,17 @@ export class OverviewComponent {
 		  	      this.reviews = data.reviews;
 	      const emotion = Math.max(data.analysis.neg,data.analysis.neu,data.analysis.pos);
 	      console.log(emotion);
-	      this.course_description = data.courseDesc;
+	      this.course_description =  data.courseDesc
+	      const pattern = /The following courses are offered by./g;
+	      const pattern2 = /The following course is offered by./g;
+
+			// Delete all parts of the string matching the pattern
+		  const faculty_text = data.faculty.toString();
+		  this.faculty= faculty_text.replace(pattern, "").slice(0, -1);
+		  this.faculty= this.faculty.replace(pattern2, "");
+
+	      this.course_details= data.courseDetails;
+	      this.course_prerequisites= data.coursePrerequisites;
 	      console.log(data.courseDesc);
 		  if(emotion === data.analysis.neu){
 	      	this.image.src= "../assets/negative.png";
