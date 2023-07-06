@@ -3,12 +3,17 @@ import {ActivatedRoute, Router, Routes} from "@angular/router";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import * as $ from 'jquery';
 
+
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
+
+
 export class OverviewComponent {
+
+
 	courseCode!: string ;
 	courseCodeWithoutUnits! :string;
 	courseCodeShortened!: string;
@@ -21,15 +26,19 @@ export class OverviewComponent {
 	image!: HTMLImageElement;
 	barColor!: string;
 	course_description!: string;
+	course_details!: string;
+	faculty!: string;
+	course_prerequisites!: string;
 	speechBubbleText = "";
 
   loginButton!: HTMLElement;
   signUpButton!: HTMLElement;
   logOutButton!: HTMLElement;
 
-  	posColor = "green";
-  	negColor = "red";
+  	posColor = "#008F71";
+  	negColor = "#8f001e";
   	neuColor = "blue";
+  	allColor = "white";
 
 	constructor(private router:Router, private activatedRoute: ActivatedRoute,private httpClient:HttpClient){
 	}
@@ -56,10 +65,14 @@ export class OverviewComponent {
 	      this.logOutButton.style.visibility="visible";
 	    }
 		this.sentimentAnalysis();
+
+
+
 	}
 
 	sentimentAnalysis(): any {
 	    const apiUrl = 'http://127.0.0.1:5002/overview';
+	    console.log(this.courseCode);
 	    const params = new HttpParams().set('paramName', this.courseCode);
 	    const analysisResult = document.querySelector('.analysisResult') as HTMLInputElement;   
 
@@ -87,21 +100,34 @@ export class OverviewComponent {
 		  	      this.reviews = data.reviews;
 	      const emotion = Math.max(data.analysis.neg,data.analysis.neu,data.analysis.pos);
 	      console.log(emotion);
-	      this.course_description = data.courseDesc;
+	      this.course_description =  data.courseDesc
+	      const pattern = /The following courses are offered by./g;
+	      const pattern2 = /The following course is offered by./g;
+
+			// Delete all parts of the string matching the pattern
+		  const faculty_text = data.faculty.toString();
+		  this.faculty= faculty_text.replace(pattern, "").slice(0, -1);
+		  this.faculty= this.faculty.replace(pattern2, "");
+
+	      this.course_details= data.courseDetails;
+	      this.course_prerequisites= data.coursePrerequisites;
 	      console.log(data.courseDesc);
 		  if(emotion === data.analysis.neu){
+		  	this.allColor = this.neuColor;
 	      	this.image.src= "../assets/negative.png";
-	      	this.barColor = "blue";
+	      	this.barColor = this.neuColor;
 	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.neuColor;
 	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.neuColor;
 	      }else if(emotion === data.analysis.pos){
+	      	this.allColor = this.posColor;
 	      	this.image.src= "../assets/positive.png";
-	      	this.barColor = "green";
+	      	this.barColor = this.posColor;
 	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.posColor;
 	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.posColor;
 	      }else{
+	      	this.allColor = this.negColor;
 	      	this.image.src= "../assets/neutral.png";
-	      	this.barColor = "red";
+	      	this.barColor = this.negColor;
 	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.negColor;
 	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.negColor;
 	      }
@@ -143,20 +169,34 @@ export class OverviewComponent {
 
 	//Route back to home page
 	goBackToHome(){
+		localStorage.removeItem('selectedClass');
 		this.router.navigate(['/']);
+		window.scrollTo(0, 0);
 	}
 
 	//Route to review page
 	makeReview(){
 		const userName = localStorage.getItem('userName');
 		if(userName == null){
-			alert("please login to make a review");
+			this.moveRobot();
+
+			//alert("please login to make a review");
 			this.changeSpeech("Please log in to make a review");
 			return;
 		}
 	    this.router.navigate(['/review', this.courseCode]);
 	    window.scrollTo(0, 0);
 	}
+	moveRobot() {
+  const robotElement = document.querySelector('.robot')!;
+  robotElement.classList.add('move');
+
+  // Remove the 'move' class after the transition completes
+  setTimeout(() => {
+    robotElement.classList.remove('move');
+  }, 2000); // Adjust the duration (in milliseconds) to control the speed of the movement
+}
+
   //Routes to login page
   login(){
     this.router.navigate(['/login']);
@@ -171,6 +211,7 @@ export class OverviewComponent {
 
   //Routes to logout page
   logOut(){
+  	console.log("logged_out");
     localStorage.removeItem('userName'); // Delete the userName from localStorage
     this.userName = null;
     this.loginButton.style.visibility="visible";
@@ -180,6 +221,15 @@ export class OverviewComponent {
 
   changeSpeech(text:string){
     this.speechBubbleText = text;
+  }
+
+  showCourseDescription(){
+  	(document.querySelector('.course_description') as HTMLInputElement).style.visibility ="visible";
+
+  }
+  hideCourseDescription(){
+  	(document.querySelector('.course_description') as HTMLInputElement).style.visibility ="hidden";
+
   }
 
 

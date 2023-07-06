@@ -36,6 +36,7 @@ export class ReviewComponent implements OnInit {
 	}
 
 	goBackToHome(){
+		localStorage.removeItem('selectedClass');
 		this.router.navigate(['/']);
 		window.scrollTo(0, 0);
 	}

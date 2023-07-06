@@ -146,6 +146,9 @@ def sentimentAnalysis():
     # Comma is important! It is a tuple
     data = cursor.execute("SELECT text FROM reviews WHERE course = ?", (paramName,)).fetchall()
     courseDesc = cursor2.execute("SELECT course_desc FROM courseInformation WHERE course_code = ?", (paramName,)).fetchall()[0]
+    faculty = cursor2.execute("SELECT faculty FROM courseInformation WHERE course_code = ?", (paramName,)).fetchall()[0]
+    courseDetails = cursor2.execute("SELECT course_details FROM courseInformation WHERE course_code = ?", (paramName,)).fetchall()[0]
+    coursePrerequisites = cursor2.execute("SELECT prerequisites FROM courseInformation WHERE course_code = ?", (paramName,)).fetchall()[0]
     reviewAndUser = cursor.execute("SELECT text, reviewer,stars FROM reviews WHERE course = ?", (paramName,)).fetchall()
     oneStar = cursor.execute("SELECT stars FROM reviews WHERE stars = '1' AND course = ?", (paramName,)).fetchall()
     twoStars = cursor.execute("SELECT stars FROM reviews WHERE stars = '2' AND course = ?", (paramName,)).fetchall()
@@ -176,7 +179,10 @@ def sentimentAnalysis():
     	'courseDesc': courseDesc,
         'analysis': analysis,
         'stars': stars,
-        'reviews' : reviewAndUser
+        'reviews' : reviewAndUser,
+        'faculty' : faculty,
+        'courseDetails' : courseDetails,
+        'coursePrerequisites' : coursePrerequisites
     }
 
     return json.dumps(result)

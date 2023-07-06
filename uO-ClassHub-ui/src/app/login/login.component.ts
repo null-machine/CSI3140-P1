@@ -33,12 +33,16 @@ export class LoginComponent {
 			if(user){
 				this.loginForm.reset();
 				localStorage.setItem('userName', user.fullname);
+				const userSignedUp = localStorage.getItem('signUp');
 				console.log(document.referrer);
 				//console.log(user.fullname)
-				if(document.referrer == 'http://localhost:4200/signup' || document.referrer == 'http://localhost:4200/login'){
-					this.router.navigate(['/'], { skipLocationChange: true });
+  				console.log(document.referrer);
+				if(userSignedUp != null){
+					localStorage.removeItem('signUp');
+					console.log('ture');
+					window.history.go(-2);
 				}else{
-					this.location.back();
+					window.history.go(-1);
 				}
 				
 				window.scrollTo(0, 0);

@@ -1,20 +1,29 @@
 <div class="header">
-  <div>
-  <button type="button" id = "signUpButton_overview" (click)="signUp()">Sign up</button>
-  <button type="button" id = "loginButton_overview" (click)="login()">Login</button>
-  <button type="button" id = "logOutButton_overview" (click)="logOut()">Log out</button>
+  <div class = "top_buttons_overview">
+  <button type="button" class = "button" id = "signUpButton_overview" (click)="signUp()">Sign up</button>
+  <button type="button" class = "button" id = "loginButton_overview" (click)="login()">Login</button>
+  <button type="button" class = "button" id = "logOutButton_overview" (click)="logOut()">Log out</button>
   </div>
       <h1>SENTIMENT ANALYSIS FOR {{courseCodeShortened}}</h1>
 </div>
 
-<div class="emotion">
+<div class="emotion" (click) = "showCourseDescription()">
       <img  id = "image" src="../assets/positive.png" alt="icon">
-      <p><strong>Course Description:</strong></p>
-      <p id = "course_description">{{course_description}}</p>
-    </div>      
+      <p id ="emotion_text">Click on me to see the course information</p>
+</div>   
 <body>
 
-  
+
+  <div class="course_description">
+    <button id="close_button" (click) = "hideCourseDescription()">Close</button>
+    <p><strong>Course Description:</strong></p>
+    <p id = "course_description">{{course_description}}</p>
+    <p id = "faculty"><strong>Faculty: </strong>{{faculty}}</p>
+    <p id = "course_details">{{course_details}}</p>
+    <p id = "course_prerequisites">{{course_prerequisites}}</p>
+</div>
+
+   
   
   <div>
 

@@ -13,9 +13,16 @@ export class HomepageComponent {
   constructor(private router:Router, private route: ActivatedRoute,private httpClient:HttpClient ){
   }
 
-  ngOnInit(): void {
+ngOnInit(): void {
+    this.loadHomePage();
+  }
+  async loadHomePage() {
     //Initializes the course data
     this.getAllCourseData();
+   
+  
+    console.log("loaded");
+
     this.userName = localStorage.getItem('userName');
 
     this.speachBubble = document.querySelector('#speechText') as HTMLElement;
@@ -26,6 +33,10 @@ export class HomepageComponent {
     this.loginButton = document.querySelector('#loginButton_home') as HTMLInputElement;
     this.signUpButton = document.querySelector('#signUpButton_home') as HTMLInputElement;
     this.logOutButton = document.querySelector('#logOutButton_home') as HTMLInputElement;
+    console.log(document.referrer);
+    const lastEntryIndex = window.history.length - 1;
+    const lastEntry = window.history.state[lastEntryIndex];
+    console.log("last entry " + lastEntry + " " + lastEntryIndex);
 
 
     if(this.userName === null){
@@ -37,12 +48,26 @@ export class HomepageComponent {
       console.log(this.userName);
       this.logOutButton.style.visibility="visible";
     }
+    window.addEventListener('beforeunload', function() {
+      localStorage.removeItem('selectedClass');
+    });
+
+    if(document.referrer!= "http://localhost:4200/"){
+      const alreadySelectedClass = localStorage.getItem('selectedClass');
+
+      if(alreadySelectedClass != null){
+        this.courseCode = alreadySelectedClass;
+        this.selectedClass();
+      }
+    }
+
+
 
   }
 
   courseCode='';
   userName: string | null = null;
-  courseData : JSON | undefined;
+  courseData : any;
   courseCodes: any[] = [];
   coursesArray: any[] = [];
 
@@ -60,31 +85,26 @@ export class HomepageComponent {
   filteredOptions: string[] = [];
   //The option user selects from the filtered options
   selectedOption: string = '';
-
-
-
-  getAllCourseData(){
-
-    //Connects to the database from the /home path component
-    //Get method in the /home path selects all elements from the database
-    //Data holds all elements from the database
-    this.httpClient.get('http://127.0.0.1:5002/home').subscribe(data => {
-      
-      //Converts database to JSON
-      this.courseData = data as JSON;
-
-      //Takes the first element of all arrays = the course codes
-      const allCodes = Object.values(this.courseData).map((obj: any) => Object.values(obj)[1]);
-     
-     //Puts all the courses into an array
-     this.coursesArray = Object.values(this.courseData);
-     //Puts all the UNIQUE course codes into an array
-     this.courseCodes = allCodes;
-
-  
-    })
+getAllCourseData() {
+    return new Promise<void>((resolve) => {
+      this.httpClient.get('http://127.0.0.1:5002/home').subscribe((data: any) => {
+        const allCodes = Object.values(data).map((obj: any) => Object.values(obj)[1]);
+        this.courseCodes = allCodes;
+        (document.querySelector('.search-bar') as HTMLElement).style.opacity = '1';
+        resolve(); // Resolve the promise once the task is complete
+      });});
   }
 
+
+ /* async getAllCourseData() {
+    return new Promise<void>((resolve) => {
+      this.httpClient.get('http://127.0.0.1:5002/home').subscribe((data: any) => {
+        const allCodes = Object.values(data).map((obj: any) => Object.values(obj)[1]);
+        this.courseCodes = allCodes;
+        resolve(); // Resolve the promise once the task is complete
+      });
+    });
+  }*/
 
 filterOptions(target: EventTarget | null) {
   if (!(target instanceof HTMLInputElement) || target.value === null) {
@@ -93,6 +113,7 @@ filterOptions(target: EventTarget | null) {
   }
 
   const searchValue = target.value.toLowerCase();
+  console.log(searchValue + " " + this.courseCodes[0]);
   let matchingCount = 0;
 
   this.filteredOptions = this.courseCodes.filter(option => {
@@ -116,14 +137,17 @@ filterOptions(target: EventTarget | null) {
 
     //This part is to make the list disappear when the user deletes their input
     searchInput.addEventListener('input', function() {
-      const filteredOptions = document.querySelector('.filtered-options') as HTMLElement;
+      const filteredOptionsH = document.querySelector('.filtered-options') as HTMLElement;
       const searchValue = this.value.trim();
 
       //If the searched value's length is greater than 0 display, else make the list disappear
+      if(filteredOptionsH == null){
+        return;
+      }
       if (searchValue.length > 0) {
-        filteredOptions.classList.add('block');
+        filteredOptionsH.classList.add('block');
       } else {
-        filteredOptions.classList.remove('none');
+        filteredOptionsH.classList.remove('none');
       }
     });
   }
@@ -143,6 +167,8 @@ filterOptions(target: EventTarget | null) {
     this.seeReviewsButton.style.visibility = "hidden";
     this.searchBar.style.visibility = "visible";
     this.gobackButton.style.visibility = "hidden";
+    localStorage.removeItem('selectedClass');
+    (document.querySelector('.search-input') as HTMLInputElement).value = "";
   }
 
 
@@ -158,11 +184,8 @@ filterOptions(target: EventTarget | null) {
 
     const verificationPassed = this.verifySelectedOption();
     if(verificationPassed){
-      this.changeSpeech("Please select one of the values");
-      this.searchBar.style.visibility = "hidden";
-      this.reviewButton.style.visibility = "visible";
-      this.seeReviewsButton.style.visibility = "visible";
-      this.gobackButton.style.visibility = "visible";
+      this.selectedClass();
+      localStorage.setItem('selectedClass', this.courseCode);
     }else{
       this.changeSpeech("Please enter a valid course code");
     }
@@ -177,8 +200,8 @@ filterOptions(target: EventTarget | null) {
   //Routes to the review page
   makeReview(){
     if(this.userName === null){
-      console.log("Please login to make a review");
       this.changeSpeech("Please login to make a review");
+      this.moveRobot();
       return;
     }
     this.router.navigate(['/review', this.courseCode]);
@@ -211,5 +234,25 @@ filterOptions(target: EventTarget | null) {
   changeSpeech(text:string){
     this.speachBubble.innerHTML = text;
   }
+
+
+  selectedClass(){
+    this.changeSpeech("Please select one of the values");
+      this.searchBar.style.visibility = "hidden";
+      this.reviewButton.style.visibility = "visible";
+      this.seeReviewsButton.style.visibility = "visible";
+      this.gobackButton.style.visibility = "visible";
+
+  }
+
+  moveRobot() {
+  const robotElement = document.querySelector('.homepage_robot')!;
+  robotElement.classList.add('move');
+
+  // Remove the 'move' class after the transition completes
+  setTimeout(() => {
+    robotElement.classList.remove('move');
+  }, 1500); // Adjust the duration (in milliseconds) to control the speed of the movement
+}
 
 }

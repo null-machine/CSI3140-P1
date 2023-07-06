@@ -11,16 +11,16 @@
 				</div>
 				<form [formGroup] = "signupForm" (ngSubmit) ="signUp()">
 					<div class="mb-3">
-				    	<label for="exampleInputPassword1" class="form-label">Full name</label>
-				    	<input formControlName = "fullname" type="text" class="form-control" id="exampleInputPassword1">
+				    	<label for="fullName" class="form-label">Full name</label>
+				    	<input formControlName = "fullname" type="text" class="form-control" id="fullName">
 				  	</div>
 					<div class="mb-3">
-					    <label for="exampleInputEmail1" class="form-label">Email address</label>
-					    <input formControlName = "email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					    <label for="inputEmail" class="form-label">Email address</label>
+					    <input formControlName = "email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
 				  	</div>
 				  	<div class="mb-3">
-				    	<label for="exampleInputPassword1" class="form-label">Password</label>
-				    	<input formControlName = "password" type="password" class="form-control" id="exampleInputPassword1">
+				    	<label for="inputPassword" class="form-label">Password</label>
+				    	<input formControlName = "password" type="password" class="form-control" id="inputPassword">
 				  	</div>
 				  	<button type="submit" class="btn btn-primary">Sign up</button>
 				  	<br>
