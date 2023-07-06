@@ -2,13 +2,18 @@ import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, Routes} from "@angular/router";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import * as $ from 'jquery';
-import { Chart, ArcElement, CategoryScale, LinearScale, PointElement, Title, Tooltip } from 'chart.js';
+
+
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
+
+
 export class OverviewComponent {
+
+
 	courseCode!: string ;
 	courseCodeWithoutUnits! :string;
 	courseCodeShortened!: string;
@@ -31,8 +36,9 @@ export class OverviewComponent {
   logOutButton!: HTMLElement;
 
   	posColor = "#008F71";
-  	negColor = "red";
+  	negColor = "#8f001e";
   	neuColor = "blue";
+  	allColor = "white";
 
 	constructor(private router:Router, private activatedRoute: ActivatedRoute,private httpClient:HttpClient){
 	}
@@ -107,18 +113,21 @@ export class OverviewComponent {
 	      this.course_prerequisites= data.coursePrerequisites;
 	      console.log(data.courseDesc);
 		  if(emotion === data.analysis.neu){
+		  	this.allColor = this.neuColor;
 	      	this.image.src= "../assets/negative.png";
-	      	this.barColor = "blue";
+	      	this.barColor = this.neuColor;
 	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.neuColor;
 	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.neuColor;
 	      }else if(emotion === data.analysis.pos){
+	      	this.allColor = this.posColor;
 	      	this.image.src= "../assets/positive.png";
-	      	this.barColor = "green";
+	      	this.barColor = this.posColor;
 	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.posColor;
 	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.posColor;
 	      }else{
+	      	this.allColor = this.negColor;
 	      	this.image.src= "../assets/neutral.png";
-	      	this.barColor = "red";
+	      	this.barColor = this.negColor;
 	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.negColor;
 	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.negColor;
 	      }
@@ -202,6 +211,7 @@ export class OverviewComponent {
 
   //Routes to logout page
   logOut(){
+  	console.log("logged_out");
     localStorage.removeItem('userName'); // Delete the userName from localStorage
     this.userName = null;
     this.loginButton.style.visibility="visible";

@@ -174,6 +174,12 @@
       "email": "l@gmail.com",
       "password": "l",
       "id": 28
+    },
+    {
+      "fullname": "wer",
+      "email": "wer@gmail.com",
+      "password": "wer",
+      "id": 29
     }
   ],
   "profile": {

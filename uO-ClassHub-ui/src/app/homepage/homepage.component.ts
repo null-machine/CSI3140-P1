@@ -252,7 +252,7 @@ filterOptions(target: EventTarget | null) {
   // Remove the 'move' class after the transition completes
   setTimeout(() => {
     robotElement.classList.remove('move');
-  }, 2000); // Adjust the duration (in milliseconds) to control the speed of the movement
+  }, 1500); // Adjust the duration (in milliseconds) to control the speed of the movement
 }
 
 }

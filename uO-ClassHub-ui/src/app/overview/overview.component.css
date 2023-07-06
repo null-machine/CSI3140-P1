@@ -33,6 +33,21 @@
   	align-items: center; 
 
 }
+.top_buttons_overview{
+
+
+  right:0px;
+  top:0px;
+}
+.button {
+
+  background-color: white;
+  font-size: 100%;
+  justify-content: center;
+  padding: 10px;
+  border-color: white;
+  border-radius: 20%;
+}
 .move {
   transform: translate(-50%,0);
 }
