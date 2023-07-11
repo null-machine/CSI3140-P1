@@ -94,8 +94,10 @@ getAllCourseData() {
       this.httpClient.get('http://127.0.0.1:5000/home').subscribe((data: any) => {
         const allCodes = Object.values(data).map((obj: any) => Object.values(obj)[1]);
         this.courseCodes = allCodes;
+        
 
         console.log(this.courseCodes);
+
         (document.querySelector('.search-bar') as HTMLElement).style.opacity = '1';
         resolve(); // Resolve the promise once the task is complete
       });});
@@ -187,6 +189,7 @@ filterOptions(target: EventTarget | null) {
     //Filters the coursesArray according to selected option
     const selectedOptionValues = this.coursesArray.filter(optionArr => optionArr[1] === this.selectedOption);
     this.courseCode = this.selectedOption;
+    console.log(this.selectOption);
     if(this.courseCode === ""){
       this.changeSpeech("Please enter course code");
       return;

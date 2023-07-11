@@ -14,6 +14,11 @@ import * as $ from 'jquery';
 export class OverviewComponent {
 
 
+	 public pieChartLabels:string[] = ['Chrome', 'Safari', 'Firefox','Internet Explorer','Other'];
+  	public pieChartData:number[] = [40, 20, 20 , 10,10];
+  	public pieChartType:string = 'pie';
+
+
 	courseCode!: string ;
 	courseCodeWithoutUnits! :string;
 	courseCodeShortened!: string;
@@ -71,7 +76,7 @@ export class OverviewComponent {
 	}
 
 	sentimentAnalysis(): any {
-	    const apiUrl = 'http://127.0.0.1:5002/overview';
+	    const apiUrl = 'http://127.0.0.1:5000/overview';
 	    console.log(this.courseCode);
 	    const params = new HttpParams().set('paramName', this.courseCode);
 	    const analysisResult = document.querySelector('.analysisResult') as HTMLInputElement;   
