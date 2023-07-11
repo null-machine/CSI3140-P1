@@ -26,13 +26,17 @@ ngOnInit(): void {
     this.userName = localStorage.getItem('userName');
 
     this.speachBubble = document.querySelector('#speechText') as HTMLElement;
-    this.reviewButton = document.querySelector('#review-button') as HTMLElement;
-    this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
+    // this.reviewButton = document.querySelector('#review-button') as HTMLElement;
+    // this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
     this.searchBar = document.querySelector('.search-bar') as HTMLElement;
     this.gobackButton = document.querySelector('.goBack') as HTMLElement;
     this.loginButton = document.querySelector('#loginButton_home') as HTMLInputElement;
     this.signUpButton = document.querySelector('#signUpButton_home') as HTMLInputElement;
-    this.logOutButton = document.querySelector('#logOutButton_home') as HTMLInputElement;
+
+    this.logOutText = document.querySelector('#logOutText') as HTMLInputElement;
+    this.loginText = document.querySelector('#loginText') as HTMLInputElement;
+    this.option = document.querySelector('#optionCourse') as HTMLInputElement;
+
     console.log(document.referrer);
     const lastEntryIndex = window.history.length - 1;
     const lastEntry = window.history.state[lastEntryIndex];
@@ -41,12 +45,11 @@ ngOnInit(): void {
 
     if(this.userName === null){
       console.log("user not logged in")
-      this.loginButton.style.visibility="visible";
-      this.signUpButton.style.visibility="visible";
+      this.loginText.style.display="inline";
     }else{
       console.log("user logged in")
       console.log(this.userName);
-      this.logOutButton.style.visibility="visible";
+      this.logOutText.style.display="inline";
     }
     window.addEventListener('beforeunload', function() {
       localStorage.removeItem('selectedClass');
@@ -60,9 +63,6 @@ ngOnInit(): void {
         this.selectedClass();
       }
     }
-
-
-
   }
 
   courseCode='';
@@ -73,13 +73,17 @@ ngOnInit(): void {
 
   //HTML elements
   speachBubble!: HTMLElement;
-  reviewButton!: HTMLElement;
-  seeReviewsButton!: HTMLElement;
+  // reviewButton!: HTMLElement;
+  // seeReviewsButton!: HTMLElement;
   searchBar!: HTMLElement;
   gobackButton!: HTMLElement;
   loginButton!: HTMLElement;
   signUpButton!: HTMLElement;
-  logOutButton!: HTMLElement;
+  logOutText!: HTMLElement;
+  loginText!: HTMLInputElement;
+  option!:HTMLInputElement; 
+
+  
 
   //Filtered options from the input
   filteredOptions: string[] = [];
@@ -87,9 +91,11 @@ ngOnInit(): void {
   selectedOption: string = '';
 getAllCourseData() {
     return new Promise<void>((resolve) => {
-      this.httpClient.get('http://127.0.0.1:5002/home').subscribe((data: any) => {
+      this.httpClient.get('http://127.0.0.1:5000/home').subscribe((data: any) => {
         const allCodes = Object.values(data).map((obj: any) => Object.values(obj)[1]);
         this.courseCodes = allCodes;
+
+        console.log(this.courseCodes);
         (document.querySelector('.search-bar') as HTMLElement).style.opacity = '1';
         resolve(); // Resolve the promise once the task is complete
       });});
@@ -163,10 +169,14 @@ filterOptions(target: EventTarget | null) {
   //Goes back to the search bar
   goBack(){
     this.changeSpeech("Please select a course");
-    this.reviewButton.style.visibility = "hidden";
-    this.seeReviewsButton.style.visibility = "hidden";
-    this.searchBar.style.visibility = "visible";
-    this.gobackButton.style.visibility = "hidden";
+    // this.reviewButton.style.visibility = "hidden";
+    // this.seeReviewsButton.style.visibility = "hidden";
+    // this.searchBar.style.visibility = "visible";
+    // this.gobackButton.style.visibility = "hidden";
+
+    this.searchBar.style.display ="inline"; 
+    this.option.style.display ="none"; 
+
     localStorage.removeItem('selectedClass');
     (document.querySelector('.search-input') as HTMLInputElement).value = "";
   }
@@ -226,9 +236,10 @@ filterOptions(target: EventTarget | null) {
     localStorage.removeItem('userName'); // Delete the userName from localStorage
     this.userName = null;
     this.router.navigate(['/'], { skipLocationChange: true });
-    this.loginButton.style.visibility="visible";
-    this.signUpButton.style.visibility="visible";
-    this.logOutButton.style.visibility="hidden";
+    // this.loginButton.style.visibility="visible";
+    // this.signUpButton.style.visibility="visible";
+    this.loginText.style.display ="inline"; 
+    this.logOutText.style.display="none";
   }
 
   changeSpeech(text:string){
@@ -238,10 +249,11 @@ filterOptions(target: EventTarget | null) {
 
   selectedClass(){
     this.changeSpeech("Please select one of the values");
-      this.searchBar.style.visibility = "hidden";
-      this.reviewButton.style.visibility = "visible";
-      this.seeReviewsButton.style.visibility = "visible";
-      this.gobackButton.style.visibility = "visible";
+      this.searchBar.style.display = "none";
+      this.option.style.display ="inline"; 
+      // this.reviewButton.style.visibility = "visible";
+      // this.seeReviewsButton.style.visibility = "visible";
+      // this.gobackButton.style.visibility = "";
 
   }
 

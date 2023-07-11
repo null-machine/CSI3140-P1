@@ -180,6 +180,24 @@
       "email": "wer@gmail.com",
       "password": "wer",
       "id": 29
+    },
+    {
+      "fullname": "zijun",
+      "email": "ye@uottawa.ca",
+      "password": "111",
+      "id": 30
+    },
+    {
+      "fullname": "Zijun",
+      "email": "zye072@uottawa.ca",
+      "password": "123",
+      "id": 31
+    },
+    {
+      "fullname": "Addy",
+      "email": "addy@gmail.com",
+      "password": "123",
+      "id": 32
     }
   ],
   "profile": {

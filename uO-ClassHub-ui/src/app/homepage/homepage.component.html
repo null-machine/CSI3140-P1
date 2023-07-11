@@ -2,23 +2,24 @@
 <body class="main">
   
 <div>
-  <!--<h1 id = "homepage_title"><em>Edusentia</em></h1>-->
+  <!-- <h1 id = "homepage_title"><em>Edusentia</em></h1> -->
 
-  <button type="button" id="see-reviews-button" (click)="seeReviews()">See reviews</button>
-  <button type="button" id="review-button" (click)="makeReview()">Review the course</button>
+  
 <div class ="top_buttons">
-    <button type="button" class= "button" id = "signUpButton_home" (click)="signUp()">Sign up</button>
-    <button type="button" class= "button"id = "loginButton_home" (click)="login()">Login</button>
-    <button type="button" class= "button" id = "logOutButton_home" (click)="logOut()">Log out</button>
+    <!-- <button type="button" class= "button" id = "signUpButton_home" (click)="signUp()">Sign up</button>
+    <button type="button" class= "button"id = "loginButton_home" (click)="login()">Login</button> -->
+    <!-- <button type="button" class= "button" id = "logOutButton_home" (click)="logOut()">Log out</button> -->
 </div>
 
 <div class="spacing"></div> 
 <div class = "homepage_robot">
     <div class ="speech_bubble">
-    <p id = "speechText">Welcome {{userName}}</p>
-  </div>
-
-
+      <p id = "speechText">Welcome to Edusentia! {{userName}}</p>
+    </div>
+    <div class ="speech_bubble2">
+      <p id = "loginText">Click for <span (click)="login()"> Login </span> or <span (click)="signUp()"> Sign up </span></p>
+      <p id = "logOutText">Click for <span (click)="logOut()"> Log Out </span></p>
+    </div>
 
     <img id="icon" src="../assets/robot.gif" alt="icon">
 </div>
@@ -30,40 +31,62 @@
     </select>-->
 
     
-    <div class="search-bar">
+    <!-- <div class="search-bar">
       <div class="search-input-container">
-        <input type="text" class="search-input" placeholder="Search" (input)="filterOptions($event.target)" />
-
-        <ul class="filtered-options" *ngIf="filteredOptions.length > 0">
-          <li *ngFor="let option of filteredOptions" (click)="selectOption(option)">{{ option }}</li>
-        </ul>
+        <input type="text" class="search-input" placeholder="  Search by enter course Code" (input)="filterOptions($event.target)" />
+        <button type="button" class="button" id="go-button" (click)="clickButton()">
+          <img  src="../assets/search.png" alt="icon">
+        </button>
       </div>
 
-    <button type="button" class="button" id="go-button" (click)="clickButton()">Go</button>
-
-  <!--  <button (click)="switchCoursePage()" >Search</button>
+ <button (click)="switchCoursePage()" >Search</button>
     <button id = course_main_button, type="button" (click)="search()">Go to course main</button>
     <div>
       <button  (click)="getAllCourseData()">Get all Course Data</button>
       <p>{{courseData | json}}</p>
     </div>-->
+    <!-- <ul class="filtered-options" *ngIf="filteredOptions.length > 0">
+      <li *ngFor="let option of filteredOptions" (click)="selectOption(option)">{{ option }}</li>
+    </ul>
+  </div > -->
+ 
 
-  </div >
+  <div class="search-bar">
+    <form class="search-wrapper cf">
+      <input type="text" class="search-input" placeholder="Enter course code..." (input)="filterOptions($event.target)"/>
+      <button class="button" type="button"id="go-button" (click)="clickButton()">
+        Get Start 
+      </button>
+    </form>
+    <div class="list">
+      <ul class="filtered-options" *ngIf="filteredOptions.length > 0">
+        <li *ngFor="let option of filteredOptions" (click)="selectOption(option)">{{ option }}</li>
+      </ul>
 
-  <div class = "goBack">
-    <img src="../assets/goBack.png" alt="go back button" id="goBackImg">
-    <button type="button" class= "button" id="go-back-button" (click)="goBack()">Go Back</button>
+    </div>
+  </div>
+
+  <div id="optionCourse">
+    <div class = "goBack">
+      <a id="go-back-button" (click)="goBack()">
+        <img src="../assets/back.png" alt="go back button" id="goBackImg"> Back</a>
+    </div>
+  
+    <div class="option">
+      <button type="button" id="see-reviews-button" (click)="seeReviews()">See reviews</button>
+      <button type="button" id="review-button" (click)="makeReview()">Review the course</button>
+    </div>
+
   </div>
     
-  <div class="test">
-    <div class="emotion">
+ <div class="emotion">
       <img  src="../assets/negative.png" alt="icon">
       <img  src="../assets/neutral.png" alt="icon">
       <img  src="../assets/positive.png" alt="icon">
-    </div>
+   </div>
 
 
-  </div>
+
 
 
 
