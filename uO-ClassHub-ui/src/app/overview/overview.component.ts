@@ -2,6 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, Routes} from "@angular/router";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import * as $ from 'jquery';
+import { ChartOptions } from 'chart.js';
+
 
 
 @Component({
@@ -10,15 +12,20 @@ import * as $ from 'jquery';
   styleUrls: ['./overview.component.css']
 })
 
-
 export class OverviewComponent {
-
-
-	 public pieChartLabels:string[] = ['Chrome', 'Safari', 'Firefox','Internet Explorer','Other'];
-  	public pieChartData:number[] = [40, 20, 20 , 10,10];
-  	public pieChartType:string = 'pie';
-
-
+	
+	pieChartData!:number[]; 
+	 // Pie
+	 public pieChartOptions: ChartOptions<'pie'> = {
+		responsive: false,
+	  };
+	  public pieChartLabels = [ 'Negative', 'Neutral', 'Positive'] ;
+	  public pieChartDatasets:any; 
+	  public pieChartLegend = true;
+	  public pieChartPlugins = [];
+	  
+	displayedColumns!:string[]; 
+	dataSource!:any[];
 	courseCode!: string ;
 	courseCodeWithoutUnits! :string;
 	courseCodeShortened!: string;
@@ -39,6 +46,10 @@ export class OverviewComponent {
   loginButton!: HTMLElement;
   signUpButton!: HTMLElement;
   logOutButton!: HTMLElement;
+  tabs!:any; 
+  display!:HTMLElement; 
+
+  reviewDic:any; 
 
   	posColor = "#008F71";
   	negColor = "#8f001e";
@@ -51,6 +62,7 @@ export class OverviewComponent {
 	ngOnInit(): void{
 		this.stars = [0,0,0,0,0]
 		this.star_percentages = [0,0,0,0,0]
+		// this.pieChartData = [0,0,0];
 		this.courseCode = this.activatedRoute.snapshot.paramMap.get('courseId')!;
 		this.courseCodeWithoutUnits = this.courseCode.replace(/\([^()]*\)/g, "");
 		this.courseCodeShortened = this.courseCode.slice(0,8);
@@ -70,8 +82,6 @@ export class OverviewComponent {
 	      this.logOutButton.style.visibility="visible";
 	    }
 		this.sentimentAnalysis();
-
-
 
 	}
 
@@ -94,17 +104,25 @@ export class OverviewComponent {
 		  this.star_percentages[4] = Math.floor(this.stars[4]/total_stars *100);
 
 
-	      const reviewsText = document.querySelector('#reviews') as HTMLInputElement;
-	      const container = document.getElementById('container')!;
-	      //reviewsText.innerHTML = reviews.join(', ');
+	    //   const reviewsText = document.querySelector('#reviews') as HTMLInputElement;
+	    //   const container = document.getElementById('container')!;
 
+	    //   reviewsText.innerHTML = reviews.join(', ');
 
+			this.pieChartData = [data.analysis.neg, data.analysis.neu, data.analysis.pos];
+			
+			this.pieChartDatasets = [ {
+				data:  [data.analysis.neg, data.analysis.neu, data.analysis.pos], 
+				backgroundColor: ['#DC735D', '#F6C267', '#65B19D']
+				
+			  } ];
 	      //Analysis results
-		  const analysis = `Compound: ${data.analysis.compound}, Negative: ${data.analysis.neg}, Neutral: ${data.analysis.neu}, Positive: ${data.analysis.pos}`;
-		  analysisResult.innerHTML = analysis;
-		  	      this.reviews = data.reviews;
+		//   const analysis = `Compound: ${data.analysis.compound}, Negative: ${data.analysis.neg}, Neutral: ${data.analysis.neu}, Positive: ${data.analysis.pos}`;
+		//   analysisResult.innerHTML = analysis;
+		  this.reviews = data.reviews;
+		  this.displayedColumns= ['comments','userName', 'rating'];
+
 	      const emotion = Math.max(data.analysis.neg,data.analysis.neu,data.analysis.pos);
-	      console.log(emotion);
 	      this.course_description =  data.courseDesc
 	      const pattern = /The following courses are offered by./g;
 	      const pattern2 = /The following course is offered by./g;
@@ -116,45 +134,54 @@ export class OverviewComponent {
 
 	      this.course_details= data.courseDetails;
 	      this.course_prerequisites= data.coursePrerequisites;
-	      console.log(data.courseDesc);
+
 		  if(emotion === data.analysis.neu){
 		  	this.allColor = this.neuColor;
 	      	this.image.src= "../assets/negative.png";
 	      	this.barColor = this.neuColor;
-	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.neuColor;
-	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.neuColor;
+	      	// (document.querySelector('.header') as HTMLElement).style.backgroundColor = this.neuColor;
+	      	// (document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.neuColor;
 	      }else if(emotion === data.analysis.pos){
 	      	this.allColor = this.posColor;
 	      	this.image.src= "../assets/positive.png";
 	      	this.barColor = this.posColor;
-	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.posColor;
-	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.posColor;
+	      	// (document.querySelector('.header') as HTMLElement).style.backgroundColor = this.posColor;
+	      	// (document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.posColor;
 	      }else{
 	      	this.allColor = this.negColor;
 	      	this.image.src= "../assets/neutral.png";
 	      	this.barColor = this.negColor;
-	      	(document.querySelector('.header') as HTMLElement).style.backgroundColor = this.negColor;
-	      	(document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.negColor;
+	      	// (document.querySelector('.header') as HTMLElement).style.backgroundColor = this.negColor;
+	      	// (document.querySelector('.footer') as HTMLElement).style.backgroundColor = this.negColor;
 	      }
-	      
+	    var key= 0; 
+		this.dataSource = []; 
 		data.reviews.forEach((userAndReview: string) => {
-				const listItem = document.createElement('ul');
-			    const listItem1 = document.createElement('li');
-			  	listItem1.textContent = "Reviewer = " + userAndReview[1];
-			  	listItem.appendChild(listItem1);
-			  	const listItem2 = document.createElement('li');
-			  	listItem2.textContent = "Review = " + userAndReview[0];
-			  	listItem.appendChild(listItem2);
-			  	const listItem3 = document.createElement('li');
-			  	listItem3.textContent = "Stars given= " + userAndReview[2];
-			  	listItem.appendChild(listItem3);
-			  	listItem.style.backgroundColor = "#2b2445";
-			  	listItem.style.boxShadow = '-4px 4px rgba(0, 0, 0, 0.4)';
-			  	listItem.style.margin = "10px";
-			 	container.appendChild(listItem);
-			 
+				// const listItem = document.createElement('ul');
+			    // const listItem1 = document.createElement('li');
+			  	// listItem1.textContent = "Reviewer = " + userAndReview[1];
+			  	// listItem.appendChild(listItem1);
+			  	// const listItem2 = document.createElement('li');
+			  	// listItem2.textContent = "Review = " + userAndReview[0];
+			  	// listItem.appendChild(listItem2);
+			  	// const listItem3 = document.createElement('li');
+			  	// listItem3.textContent = "Stars given= " + userAndReview[2];
+			  	// listItem.appendChild(listItem3);
+			  	// listItem.style.backgroundColor = "#2b2445";
+			  	// listItem.style.boxShadow = '-4px 4px rgba(0, 0, 0, 0.4)';
+			  	// listItem.style.margin = "10px";
+			 	// container.appendChild(listItem);
+
+				let review = {
+				 comments:userAndReview[0],
+				 userName:userAndReview[1],
+				 rating:userAndReview[2]}
+
+				 console.log(review); 
+				 this.dataSource.push(review); 
+				 
 			});
-		console.log(this.reviews);
+
 			if(this.reviews.length<1){
 				this.changeSpeech("There's no reviews on this course yet");
 				return data;
@@ -172,6 +199,18 @@ export class OverviewComponent {
 	    });
 	  }
 
+	  openWindow(selection: string) {
+		var i;
+		this.tabs =['Overview','Analysis','List']
+		for (i = 0; i < this.tabs.length; i++) {
+			if(selection!= this.tabs[i]){
+				var selected = "#"+this.tabs[i]; 
+				(document.querySelector(selected) as HTMLElement).style.display = "none";  
+			}
+		}
+		var selected = "#"+selection; 
+		(document.querySelector(selected) as HTMLElement).style.display = "block";  
+	  }
 	//Route back to home page
 	goBackToHome(){
 		localStorage.removeItem('selectedClass');
@@ -183,7 +222,7 @@ export class OverviewComponent {
 	makeReview(){
 		const userName = localStorage.getItem('userName');
 		if(userName == null){
-			this.moveRobot();
+			// this.moveRobot();
 
 			//alert("please login to make a review");
 			this.changeSpeech("Please log in to make a review");
@@ -192,15 +231,15 @@ export class OverviewComponent {
 	    this.router.navigate(['/review', this.courseCode]);
 	    window.scrollTo(0, 0);
 	}
-	moveRobot() {
-  const robotElement = document.querySelector('.robot')!;
-  robotElement.classList.add('move');
+// 	moveRobot() {
+//   const robotElement = document.querySelector('.robot')!;
+//   robotElement.classList.add('move');
 
-  // Remove the 'move' class after the transition completes
-  setTimeout(() => {
-    robotElement.classList.remove('move');
-  }, 2000); // Adjust the duration (in milliseconds) to control the speed of the movement
-}
+//   // Remove the 'move' class after the transition completes
+//   setTimeout(() => {
+//     robotElement.classList.remove('move');
+//   }, 2000); // Adjust the duration (in milliseconds) to control the speed of the movement
+// }
 
   //Routes to login page
   login(){
@@ -228,17 +267,43 @@ export class OverviewComponent {
     this.speechBubbleText = text;
   }
 
-  showCourseDescription(){
-  	(document.querySelector('.course_description') as HTMLInputElement).style.visibility ="visible";
+//   showCourseDescription(){
+//   	(document.querySelector('.course_description') as HTMLInputElement).style.visibility ="visible";
 
-  }
-  hideCourseDescription(){
-  	(document.querySelector('.course_description') as HTMLInputElement).style.visibility ="hidden";
+//   }
+//   hideCourseDescription(){
+//   	(document.querySelector('.course_description') as HTMLInputElement).style.visibility ="hidden";
 
-  }
+//   }
 
 
 
+//   RenderChart(labeldata:any,maindata:any,colordata:any,type:any,id:any) {
+//     const myChart = new Chart(id, {
+//       type: type,
+//       data: {
+//         labels: labeldata,
+//         datasets: [{
+//           label: '# of Votes',
+//           data: maindata,
+//           backgroundColor: colordata,
+//           borderColor: [
+//             'rgba(255, 99, 132, 1)'
+//           ],
+//           borderWidth: 1
+//         }]
+//       },
+//       options: {
+//         scales: {
+//           y: {
+//             beginAtZero: true
+//           }
+//         }
+//       }
+//     });
+
+
+//   }
 
 }
 
