@@ -21,6 +21,7 @@ Edusentia is not a subsystem of the University of Ottawa’s website and is not 
 Ensure all proper dependencies and tools are installed
 1. Python (Check by running `python3 -V`)
 2. Angular (Check by running `ng v`)
+3. Node Package installation ```npm install```
 
 ### Running the program
 
