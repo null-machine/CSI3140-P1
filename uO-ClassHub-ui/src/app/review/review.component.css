@@ -1,21 +1,21 @@
-div{
+/* div{
 	margin-bottom:30px;
-}
+} */
 /* Add margin or padding to elements below the header */
 .content {
   margin-top: 10em; /* Adjust the value to create desired space */
 }
 @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 h1{
-
-	font-family: 'Prata', serif;
+	/* font-family: 'Prata', serif; */
 	padding-top: 2%;
 	padding-left: 5%;
 	font-size: 2.8vw;
 	opacity: 0.8;
 }
+
 .robot {
- position: fixed;
+  position: fixed;
   top: 50%;
   right: 0%;
   transform: translate(0, -50%);
@@ -31,47 +31,51 @@ h1{
   right: 0;
   background-color: #cacdd0 ;
   color: white;
-  height: 8em;
+  /* height: 20%; */
+  z-index: 1000; 
 }
-.footer {
+/* .footer {
 
   background-color: #cacdd0 ;
   color: white;
   height: 8em;
-}
+} */
 
 
 .box {
 	font-size: 1.5em;
-	margin-left: 5em;
     flex-direction: column;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      padding: 20px;
-      background-color: white;
-      border-color: white;
+    padding: 20px;
+      /* background-color: white;
+      border-color: white; */
       width: 20em;
       border-radius: 10em; /* Adjust the value as needed */
 }
 .reviewText{
-
-	margin-left: 6em;
-  	width: 50%;
+	/* margin-left: 6em; */
+  width: 80%;
 	height: 200px;
 	font-size: 16px;
 	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
-}
-.stars {
-
-  align-items: center; /* Center align items horizontally */
-  justify-content: center; /* Center align items vertically */
   
 }
+/* .stars {
+  align-items: center; Center align items horizontally */
+  /* justify-content: center; Center align items vertically */
+  
+/* } */
 #stars{
-	float: right;
-	border-radius: 10em;
-	width: 5em;
+	/* float: right; */
+	/* border-radius: 10em;
+	width: 10em;
+  font-size: 0.8em; */
+}
+
+.box label{
+  font-size: 0.8em;
 }
 
 .anonymousMode {
@@ -81,16 +85,18 @@ h1{
 }
 
 #anonymousButton{
-
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     padding: 20px;
     width: 20em;
-    border-radius: 10em; /* Adjust the value as needed */
+    border-radius: 10em; 
+    background-color: #fff;
+    font-size: 1em;
+    border:none;
 
 }
 .checkmark {
 	position: fixed;
-  top: 60%;
+  margin-top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
@@ -99,6 +105,7 @@ h1{
   background-size: contain;
   background-repeat: no-repeat;
   display: none;
+  z-index:800; 
 }
 
 
@@ -157,4 +164,44 @@ body {
 @keyframes moving-bars {
   0%  { transform: translateY( 100% ); }
   15% { transform: translateY( 0 ); }
+}
+
+
+.selection{
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selection a{
+  margin-left: 10%;
+  margin-right: 10%;
+  font-size: 1.5em;
+}
+.selection a:hover{
+  color:#ccc;
+}
+
+
+.form{
+  position:absolute; 
+  margin-top: 5%;
+  display:block; 
+  width:50%; 
+  border-color: #2c2444;
+  border-radius: 30px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  margin-left: 15%;
+  /* background-color: #cacdd0; */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.elem{
+  margin-top: 2%;
+  display: block;
+  margin-left: 5%;
+  margin-bottom: 2%;
 }

@@ -98,11 +98,11 @@
 
 
 <div class="display">
-  <div class="window"id="Overview">
-    <div class="title">
+   <div class="title">
+    <img id = "image" src="../assets/positive.png" alt="icon">
       <h1>{{courseCodeWithoutUnits}}</h1>
-     <img id = "image" src="../assets/positive.png" alt="icon">
     </div>
+  <div class="window"id="Overview">
     
     <p><span>Course Description:</span></p>
     <p id = "course_description">{{course_description}}</p>
@@ -113,7 +113,7 @@
   </div>
 
   <div class="window " id="Analysis">
-    <h1>Analysis For {{courseCodeWithoutUnits}}</h1>
+    <!-- <h1>Analysis For {{courseCodeWithoutUnits}}</h1> -->
   <div class="analysisChild pieChart">
       <canvas baseChart 
       [type]="'pie'"
@@ -129,7 +129,7 @@
   <div class="bar-container analysisChild">
 
   <div class ="bar-title">
-    <p class ="bar-title-text">1 stars {{star_percentages[0]}}%</p>
+    <p class ="bar-title-text">🌟 {{star_percentages[0]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[0]}}%;  
         --bar-color: {{barColor}}; 
@@ -137,28 +137,28 @@
   </div>
 
   <div class ="bar-title">
-    <p class ="bar-title-text">2 stars {{star_percentages[1]}}%</p>
+    <p class ="bar-title-text">🌟 🌟 {{star_percentages[1]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[1]}}%;  
         --bar-color: {{barColor}}; 
     "></div>  
   </div>
   <div class ="bar-title">
-    <p class ="bar-title-text">3 stars {{star_percentages[2]}}%</p>
+    <p class ="bar-title-text">🌟 🌟 🌟 {{star_percentages[2]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[2]}}%;  
         --bar-color: {{barColor}}; 
     "></div>  
   </div>
   <div class ="bar-title">
-    <p class ="bar-title-text">4 stars {{star_percentages[3]}}%</p>
+    <p class ="bar-title-text">🌟 🌟 🌟 🌟 {{star_percentages[3]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[3]}}%;  
         --bar-color: {{barColor}}; 
     "></div>  
   </div>
   <div class ="bar-title">
-    <p class ="bar-title-text">5 stars {{star_percentages[4]}}%</p>
+    <p class ="bar-title-text">🌟 🌟 🌟 🌟 🌟 {{star_percentages[4]}}%</p>
     <div class="bar" style="
         --bar-width: {{stars[4]}}%;  
         --bar-color: {{barColor}}; 
@@ -201,6 +201,7 @@
 
     
   </div>
+
   <div class = " robot">
     <img id="robot" src="../assets/robot.gif" alt="icon">
       <div class ="speech_bubble_overview">
@@ -209,3 +210,4 @@
   </div>  
 
 </div>
+

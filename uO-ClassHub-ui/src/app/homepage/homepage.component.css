@@ -310,7 +310,7 @@ span{
 }
 
 .move {
-  transform: translate(-12%,45%);
+  transform: translate(12%,45%);
 }
 
 .fade-in-animation {

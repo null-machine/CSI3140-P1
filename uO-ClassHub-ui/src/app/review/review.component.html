@@ -1,4 +1,4 @@
-<body class="container">
+<!-- <body class="container"> -->
 	<div class="header">
 		<h1>{{courseCode}}</h1>
 	</div>
@@ -9,39 +9,55 @@
 			    <p id = "speech">Please give us your reviews on {{courseCodeShortened}}</p>
 			  </div>
 		</div>	
-		
+
 		<div class="checkmark" id="checkmark">
 		</div>
-
-		<div>
-			<button class="box" id="anonymousButton" (click) ="setAnonymous()">Click to review anoynmously</button>
-		</div>
-
-	  	<div class= "stars">
-	  		<div class="box">
-	  			<label for="stars">Select a rating: </label>
-				<select id="stars" name="stars">
-				  <option value="1">1</option>
-				  <option value="2">2</option>
-				  <option value="3">3</option>
-				  <option value="4">4</option>
-				  <option value="5">5</option>
-				</select>
-	  			
-	  		</div>
-	  	</div>
-
-		<textarea class = "reviewText" type="text" placeholder="Please enter your review"></textarea>
-
-	  	<div>
-			<button class ="box"type="button" id="reviewButton" (click)="makeReview()">Review the course</button>  		
-	  	</div>
-
-		<button class = "box" type="button" id="go-back-to-home" (click)="goBackToHome()">Go back to home</button>
-		<button class = "box" type="button" id="seeReviewsButton" (click)="seeReviews()">See reviews for {{courseCodeShortened}}</button>
 		
+		<div class="form">
+
+			<!-- <button class="elem " id="anonymousButton" (click) ="setAnonymous()">Click to review anoynmously</button> -->
+			<mat-slide-toggle class="elem " id="anonymousButton" (change)="setAnonymous()">Anonymous Mode</mat-slide-toggle>
+
+			<!-- <div class= "stars elem">
+				<label for="stars">Select a rating: </label>
+				<div class="">
+					<select id="stars" name="stars">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					</select>
+					
+				</div>
+			</div> -->
+			<div class= "stars elem">
+				<h4>Select a rating:</h4>
+				<mat-form-field>
+					<mat-label>Rating</mat-label>
+				  <select matNativeControl required id="stars" name="stars">
+					  <option value="1">1</option>
+					  <option value="2">2</option>
+					  <option value="3">3</option>
+					  <option value="4">4</option>
+					  <option value="5">5</option>
+				  </select>
+			  </mat-form-field>
+
+			</div>
+
+
+			<textarea class = "reviewText elem" type="text" placeholder="Please enter your review"></textarea>
+			<button mat-raised-button class ="submitButton elem"type="button" id="reviewButton" (click)="makeReview()">Submit the review</button>  			
+		</div>
 	</div>
 
-</body>
-<div class="footer">
+	<div class="selection">
+		
+		<a class = "option1" type="button" id="go-back-to-home" (click)="goBackToHome()"><img src="../assets/home.png" alt="button"> Go back to home</a>
+		<a class = "option2" type="button" id="seeReviewsButton" (click)="seeReviews()">See reviews for {{courseCodeShortened}} <img src="../assets/next.png" alt="button" id=""></a>
 	</div>
+<!-- 
+</body> -->
+<!-- <div class="footer">
+	</div> -->

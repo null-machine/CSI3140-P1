@@ -187,7 +187,7 @@ export class OverviewComponent {
 				return data;
 			} 
 			if(this.reviews.length == 1){
-				this.changeSpeech(this.reviews.length+" student reviewed this course");
+				this.changeSpeech(this.reviews.length+"reviewed this course");
 				return data;
 			}
 			this.changeSpeech(this.reviews.length+" students reviewed this course");

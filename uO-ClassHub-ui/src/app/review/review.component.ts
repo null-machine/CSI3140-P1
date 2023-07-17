@@ -63,7 +63,7 @@ export class ReviewComponent implements OnInit {
 
 
 
-		const apiUrl = 'http://127.0.0.1:5002/review';
+		const apiUrl = 'http://127.0.0.1:5000/review';
 	    const params = new HttpParams()
 	    					.set('paramName', this.courseCode)
 	    					.set('review', this.textField.value)
@@ -87,19 +87,19 @@ export class ReviewComponent implements OnInit {
  		this.anonymousReview = !this.anonymousReview;
  		if(this.anonymousReview){
  			//Change button's color
- 			this.anonymousButton.classList.add('anonymousMode');
- 			this.anonymousButton.innerHTML = "Click back to review as " + this.userName; 
+ 			// this.anonymousButton.classList.add('anonymousMode');
+ 			// this.anonymousButton.innerHTML = "Click back to review as " + this.userName; 
  			this.userName = 'Anonymous';
  			this.changeSpeech("Anonymous mode activated");
  			(document.querySelector('.header')! as HTMLInputElement).style.backgroundColor = "black";
- 			(document.querySelector('.footer')! as HTMLInputElement).style.backgroundColor = "black";
+ 			// (document.querySelector('.footer')! as HTMLInputElement).style.backgroundColor = "black";
  		}else{
- 			this.anonymousButton.classList.remove('anonymousMode');
+ 			// this.anonymousButton.classList.remove('anonymousMode');
  			this.userName = localStorage.getItem('userName')!;
- 			this.anonymousButton.innerHTML = "Click to review anonymously"; 
+ 			// this.anonymousButton.innerHTML = "Click to review anonymously"; 
  			this.changeSpeech("Reviewing as " + this.userName);
  			(document.querySelector('.header')! as HTMLInputElement).style.backgroundColor = "#cacdd0 ";
- 			(document.querySelector('.footer')! as HTMLInputElement).style.backgroundColor = "#cacdd0 ";
+ 			// (document.querySelector('.footer')! as HTMLInputElement).style.backgroundColor = "#cacdd0 ";
  		}
  	}
 
