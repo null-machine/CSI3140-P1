@@ -25,7 +25,7 @@ Ensure all proper dependencies and tools are installed
 ### Running the program
 
 Step 1: Have three instances of your terminal open. Make sure you are in the correct directory by direct to ```cd uO-ClassHub-ui```
-*  Step 2  and Step 3 enable you to run the server side of the application. *
+*** Step 2  and Step 3 enable you to run the server side of the application. ***
 
 Step 2: 
   - Mac user execute command ```FLASK_APP=server.py flask run```
