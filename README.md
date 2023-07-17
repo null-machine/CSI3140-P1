@@ -26,10 +26,13 @@ Ensure all proper dependencies and tools are installed
 
 Step 1: Have three instances of your terminal open. Make sure you are in the correct directory by direct to ```cd uO-ClassHub-ui```
 *  Step 2  and Step 3 enable you to run the server side of the application. *
+
 Step 2: 
   - Mac user execute command ```FLASK_APP=server.py flask run```
   - Windows / Linux user execute command ```py -m flask run``` or ```python server.py```
+    
 Step 3: execute command ```json-server --watch db.json```
+
 Step 4: Have the third instance to execute the command `ng serve`. This will run the client side of the application.
 
 Navigate to `http://localhost:4200/` and play around with the application! 
