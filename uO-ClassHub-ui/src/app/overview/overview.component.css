@@ -103,6 +103,9 @@ body {
       width: 20em;
       border-radius: 10em; 
 } */
+#List{
+  overflow-y: scroll;
+}
 
 .bar-container {
 	margin-top: 2%;

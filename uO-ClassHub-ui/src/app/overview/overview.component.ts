@@ -60,6 +60,7 @@ export class OverviewComponent {
 	}
 
 	ngOnInit(): void{
+		this.tabs =['Overview','Analysis','List'];
 		this.stars = [0,0,0,0,0]
 		this.star_percentages = [0,0,0,0,0]
 		// this.pieChartData = [0,0,0];
@@ -200,8 +201,8 @@ export class OverviewComponent {
 	  }
 
 	  openWindow(selection: string) {
+	  	console.log(selection);
 		var i;
-		this.tabs =['Overview','Analysis','List']
 		for (i = 0; i < this.tabs.length; i++) {
 			if(selection!= this.tabs[i]){
 				var selected = "#"+this.tabs[i]; 

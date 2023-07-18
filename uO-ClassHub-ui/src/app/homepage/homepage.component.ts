@@ -121,6 +121,15 @@ filterOptions(target: EventTarget | null) {
   }
 
   const searchValue = target.value.toLowerCase();
+
+  const searchList = document.querySelector('.list') as HTMLElement;
+  
+  if(searchValue == ""){
+    searchList.style.display = 'none';
+    return;
+  }else{
+    searchList.style.display = 'block';
+  }
   console.log(searchValue + " " + this.courseCodes[0]);
   let matchingCount = 0;
 
@@ -147,16 +156,13 @@ filterOptions(target: EventTarget | null) {
     searchInput.addEventListener('input', function() {
       const filteredOptionsH = document.querySelector('.filtered-options') as HTMLElement;
       const searchValue = this.value.trim();
+      if (filteredOptionsH == null){
+        console.log("nooooooo");
+      }else{
+        console.log("yesssssss");
+      }
 
-      //If the searched value's length is greater than 0 display, else make the list disappear
-      if(filteredOptionsH == null){
-        return;
-      }
-      if (searchValue.length > 0) {
-        filteredOptionsH.classList.add('block');
-      } else {
-        filteredOptionsH.classList.remove('none');
-      }
+
     });
   }
 

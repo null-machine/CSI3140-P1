@@ -191,4 +191,4 @@ def sentimentAnalysis():
 #api.add_resource(Courses,'/courses') #Route 1
 
 if __name__ =='__main__':
-    app.run(port = 5002)
+    app.run(port = 5000)
