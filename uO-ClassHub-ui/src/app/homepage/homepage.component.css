@@ -83,13 +83,11 @@ span{
 
 .speech_bubble{
   position: absolute;
-  font-size: 20px;
+  font-size: 1.5em;
   justify-content: center;
   color: white;
   right: 58%;
   top:20%;
-  padding: 0.5%;
-  padding-top: 1.2%;
   width: 15%;
   border-radius: 50px;
   background-color: #2c2444;
@@ -97,13 +95,12 @@ span{
 }
 .speech_bubble2{
   position: absolute;
-  font-size: 20px;
+  font-size: 1.4em;
   justify-content: center;
   color: white;
   right: 25%;
   top:30%;
-  padding: 0.5%;
-  padding-top: 1.2%;
+  padding: 1%;
   width: 15%;
   border-radius: 50px;
   background-color: #2c2444;

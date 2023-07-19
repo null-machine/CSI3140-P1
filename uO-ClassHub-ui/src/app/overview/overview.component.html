@@ -79,8 +79,8 @@
 
   <div class="selection">
     <ul>
-      <li><a (click)="openWindow('Overview')">Overview</a></li>
       <li><a (click)="openWindow('Analysis')">Analysis Result</a></li>
+      <li><a (click)="openWindow('Overview')">Overview</a></li>
       <li><a (click)="openWindow('List')">List Review</a></li>
       <li><a (click)="makeReview()">Review Course</a></li>
     </ul>
@@ -174,20 +174,18 @@
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
     
-      <!-- Name Column -->
-      <ng-container matColumnDef="comments">
-        <th mat-header-cell *matHeaderCellDef> Comments </th>
-        <td mat-cell *matCellDef="let element"> {{element.comments}}
-          
-        
-        </td>
-      </ng-container>
-    
       <!-- Weight Column -->
       <ng-container matColumnDef="userName">
         <th mat-header-cell *matHeaderCellDef> Username</th>
         <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
       </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="comments">
+        <th mat-header-cell *matHeaderCellDef> Comments </th>
+        <td mat-cell *matCellDef="let element"> {{element.comments}}    
+        </td>
+      </ng-container>
+  
     
       <!-- Symbol Column -->
       <ng-container matColumnDef="rating">

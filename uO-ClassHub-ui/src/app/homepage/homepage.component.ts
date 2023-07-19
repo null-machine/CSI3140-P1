@@ -220,7 +220,7 @@ filterOptions(target: EventTarget | null) {
   makeReview(){
     if(this.userName === null){
       this.changeSpeech("Please login to make a review");
-      this.moveRobot();
+    //  this.moveRobot();
       return;
     }
     this.router.navigate(['/review', this.courseCode]);

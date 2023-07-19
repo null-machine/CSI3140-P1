@@ -30,8 +30,8 @@
 	border-radius: 50em;
 	background-color: #fff;
 	animation: moveTitle 3.5s linear infinite;
-  	display: inline-block;
-  	align-items: center; 
+  display: inline-block;
+  align-items: center; 
 
 }
 .top_buttons_overview{
@@ -103,9 +103,22 @@ body {
       width: 20em;
       border-radius: 10em; 
 } */
+
 #List{
+
   overflow-y: scroll;
 }
+
+/* Webkit-based browsers (Chrome, Safari) */
+#List::-webkit-scrollbar {
+  width: 12px; /* Adjust the width of the scrollbar */
+}
+
+#List::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar thumb */
+  border-radius: 6px; /* Adjust the border-radius to make the scrollbar thumb rounded */
+}
+
 
 .bar-container {
 	margin-top: 2%;
@@ -235,7 +248,7 @@ body {
   padding:10px 40px 10px 40px; 
 }
 
-.selection li{
+.selection li {
   /* padding: 1rem 2rem 1.15rem; */
   /* text-transform: uppercase; */
   cursor: pointer;
@@ -247,7 +260,7 @@ body {
   font-size:20px; 
 }
 
-.selection li:hover {
+.selection li a:hover {
   /* background-image: url('https://scottyzen.sirv.com/Images/v/button.png'); */
   background-size: 100% 100%;
   color: #27262c;
@@ -258,7 +271,7 @@ body {
 	font-weight: bold;
   padding: 10px;
 }
-.selection li:active {
+.selection li a:active {
   transform: translateY(4px);
   background-size: 100% 100%;
   color: #27262c;
@@ -268,6 +281,7 @@ body {
   border-radius: 20px;
 	font-weight: bold;
   padding: 10px;
+  font-size: 110%;
 }
 
 @keyframes spring {

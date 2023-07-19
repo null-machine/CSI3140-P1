@@ -39,8 +39,7 @@ export class LoginComponent {
   				console.log(document.referrer);
 				if(userSignedUp != null){
 					localStorage.removeItem('signUp');
-					console.log('ture');
-					window.history.go(-2);
+					this.router.navigate(['/']);
 				}else{
 					window.history.go(-1);
 				}

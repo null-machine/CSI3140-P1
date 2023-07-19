@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 .card{
+  font-family: 'Prata', serif;
 	border:none;
 	width: 500px;
 	padding:40px;
@@ -8,6 +10,7 @@
 	left:50%;
 	transform: translate(-50%, -50%);
 	background: white;
+  font-size: 1.2em;
 }
 #alertBox {
   display: none;
