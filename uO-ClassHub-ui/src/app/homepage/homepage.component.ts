@@ -18,51 +18,56 @@ ngOnInit(): void {
   }
   async loadHomePage() {
     //Initializes the course data
-    this.getAllCourseData();
+    try{
+      this.getAllCourseData();
+          console.log("loaded");
+
+      this.userName = localStorage.getItem('userName');
+
+      this.speachBubble = document.querySelector('#speechText') as HTMLElement;
+       this.reviewButton = document.querySelector('#review-button') as HTMLElement;
+      // this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
+      this.searchBar = document.querySelector('.search-bar') as HTMLElement;
+      this.gobackButton = document.querySelector('.goBack') as HTMLElement;
+      this.loginButton = document.querySelector('#loginButton_home') as HTMLInputElement;
+      this.signUpButton = document.querySelector('#signUpButton_home') as HTMLInputElement;
+
+      this.logOutText = document.querySelector('#logOutText') as HTMLInputElement;
+      this.loginText = document.querySelector('#loginText') as HTMLInputElement;
+      this.option = document.querySelector('#optionCourse') as HTMLInputElement;
+
+      console.log(document.referrer);
+      const lastEntryIndex = window.history.length - 1;
+      const lastEntry = window.history.state[lastEntryIndex];
+      console.log("last entry " + lastEntry + " " + lastEntryIndex);
+
+
+      if(this.userName === null){
+        console.log("user not logged in")
+        this.loginText.style.display="inline";
+      }else{
+        console.log("user logged in")
+        console.log(this.userName);
+        this.logOutText.style.display="inline";
+      }
+      window.addEventListener('beforeunload', function() {
+        localStorage.removeItem('selectedClass');
+      });
+
+      if(document.referrer!= "http://localhost:4200/"){
+        const alreadySelectedClass = localStorage.getItem('selectedClass');
+
+        if(alreadySelectedClass != null){
+          this.courseCode = alreadySelectedClass;
+          this.selectedClass();
+        }
+      }
+    }catch(error){
+
+    }
    
   
-    console.log("loaded");
 
-    this.userName = localStorage.getItem('userName');
-
-    this.speachBubble = document.querySelector('#speechText') as HTMLElement;
-    // this.reviewButton = document.querySelector('#review-button') as HTMLElement;
-    // this.seeReviewsButton = document.querySelector('#see-reviews-button') as HTMLElement;
-    this.searchBar = document.querySelector('.search-bar') as HTMLElement;
-    this.gobackButton = document.querySelector('.goBack') as HTMLElement;
-    this.loginButton = document.querySelector('#loginButton_home') as HTMLInputElement;
-    this.signUpButton = document.querySelector('#signUpButton_home') as HTMLInputElement;
-
-    this.logOutText = document.querySelector('#logOutText') as HTMLInputElement;
-    this.loginText = document.querySelector('#loginText') as HTMLInputElement;
-    this.option = document.querySelector('#optionCourse') as HTMLInputElement;
-
-    console.log(document.referrer);
-    const lastEntryIndex = window.history.length - 1;
-    const lastEntry = window.history.state[lastEntryIndex];
-    console.log("last entry " + lastEntry + " " + lastEntryIndex);
-
-
-    if(this.userName === null){
-      console.log("user not logged in")
-      this.loginText.style.display="inline";
-    }else{
-      console.log("user logged in")
-      console.log(this.userName);
-      this.logOutText.style.display="inline";
-    }
-    window.addEventListener('beforeunload', function() {
-      localStorage.removeItem('selectedClass');
-    });
-
-    if(document.referrer!= "http://localhost:4200/"){
-      const alreadySelectedClass = localStorage.getItem('selectedClass');
-
-      if(alreadySelectedClass != null){
-        this.courseCode = alreadySelectedClass;
-        this.selectedClass();
-      }
-    }
   }
 
   courseCode='';
@@ -73,7 +78,7 @@ ngOnInit(): void {
 
   //HTML elements
   speachBubble!: HTMLElement;
-  // reviewButton!: HTMLElement;
+   reviewButton!: HTMLElement;
   // seeReviewsButton!: HTMLElement;
   searchBar!: HTMLElement;
   gobackButton!: HTMLElement;
@@ -82,6 +87,7 @@ ngOnInit(): void {
   logOutText!: HTMLElement;
   loginText!: HTMLInputElement;
   option!:HTMLInputElement; 
+  componentName = "HomepageComponent";
 
   
 

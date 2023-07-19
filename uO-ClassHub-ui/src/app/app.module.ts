@@ -5,8 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ReviewComponent } from './review/review.component';
 import { OverviewComponent } from './overview/overview.component';
-import { ListReviewsComponent } from './review/list-reviews/list-reviews.component';
-import { SendReviewComponent } from './review/send-review/send-review.component';
 import {RouterOutlet} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
@@ -20,6 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -27,8 +26,6 @@ import {MatButtonModule} from '@angular/material/button';
     HomepageComponent,
     ReviewComponent,
     OverviewComponent,
-    ListReviewsComponent,
-    SendReviewComponent,
     LoginComponent,
     SignupComponent,
   ],
@@ -45,7 +42,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule
 
   ],
   providers: [],
