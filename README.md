@@ -1,5 +1,5 @@
 # Edusentia - uOttawa Course Review System
-Project presentation: https://youtu.be/R-pi6GH-4dU 
+Project presentation: [https://youtu.be/R-pi6GH-4dU ](https://youtu.be/whjRPr1LyGQ)
 
 |Name|student number|
 |---|---|
